@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -38,6 +39,7 @@ public class Network {
 	/**
 	 * If set 'false' this network will not be initialized
 	 */
+	@Transient
 	private boolean enabled;
 	
 	/**
