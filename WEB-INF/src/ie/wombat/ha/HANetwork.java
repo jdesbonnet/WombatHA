@@ -85,18 +85,11 @@ public class HANetwork {
 		
 		Long networkId = networkRecord.getId();
 		
-		if (networkId == 4L) {
-			return;
-		}
-		
-//if (networkId == null) {
-	//log.warn ("Attempting to create HANetwork with networkId==null. Using 1L as default network ID.");
-	//networkId = 1L;
-//}
 		log.info("Creating HANetwork for networkId=" + networkId);
 		this.networkId = networkId;
 		
 		// Load configuration file
+		/*
 		File configFile = new File ("/var/tmp/ha.properties");
 		Properties properties = new Properties();
 		try {
@@ -106,7 +99,9 @@ public class HANetwork {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		*/
 		
+		// Parse driver parameters (colon separated)
 		String[] p = networkRecord.getNicDriver().split(":");
 		String nicHardware = p[0];
 		String nicIOAdapter = "http";
@@ -114,6 +109,8 @@ public class HANetwork {
 			nicIOAdapter = p[1];
 		}
 		
+		log.info ("nicHardware=" + nicHardware + " nicIOAdapter=" + nicIOAdapter);
+
 		try {
 			
 			
@@ -122,8 +119,10 @@ public class HANetwork {
 			if ("http".equals(nicIOAdapter)) {
 				uartAdapter = new ServletAdapter();
 			} else if ("tcp".equals(nicIOAdapter)) {
+				// TCP adapter expects additional host, port parameters
 				String nicIOHost = p[2];
 				int nicIOPort = Integer.parseInt(p[3]);
+				log.info ("TCP Adapter: host=" + nicIOHost + " port=" + nicIOPort);
 				Socket sock = new Socket(nicIOHost, nicIOPort);
 				InputStream sin = sock.getInputStream();
 				OutputStream sout = sock.getOutputStream();
@@ -133,12 +132,12 @@ public class HANetwork {
 					uartAdapter = new XBeeStreamAdapter(sin, sout);
 				}
 			} else if ("sio".equals(nicIOAdapter)) {
-				/*
-				String nicDeviceName = properties.getProperty("nicDeviceName","/dev/ttyUSB0");
-				int nicDeviceSpeed = Integer.parseInt(properties.getProperty("nicDeviceSpeed", "57600"));
-				*/
+				// SIO (UART) adapter expects additional deviceName, speed parameters
 				String nicDeviceName = p[2];
 				int nicDeviceSpeed = Integer.parseInt(p[3]);
+
+				log.info ("SIO Adapter: device=" + nicDeviceName + " speed=" + nicDeviceSpeed);
+
 				SerialPort sioPort;
 				try {
 					sioPort = SIOUtil.openSerialPort(nicDeviceName,
