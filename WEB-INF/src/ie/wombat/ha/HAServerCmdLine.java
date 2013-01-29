@@ -71,6 +71,7 @@ public class HAServerCmdLine {
 		}
 
 		// Load configuration file
+		/*
 		File configFile = new File ("/var/tmp/ha.properties");
 		Properties properties = new Properties();
 		try {
@@ -80,6 +81,7 @@ public class HAServerCmdLine {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		*/
 		
 		// TODO: simple service enable mechanism. Replace with something 
 		// better.
@@ -103,7 +105,9 @@ public class HAServerCmdLine {
 
 		EntityManager em = HibernateUtil.getEntityManager();
 		em.getTransaction().begin();
+
 		List<Network> networks = em.createQuery("from Network order by id").getResultList();
+
 		for (Network network : networks) {
 
 			if ( (networkIds != null) && !networkIds.contains(network.getId()) ) {
