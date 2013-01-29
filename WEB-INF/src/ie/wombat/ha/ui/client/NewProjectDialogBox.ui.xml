@@ -1,0 +1,32 @@
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:omrui='urn:import:ie.wombat.ha.ui.client'>
+
+<!-- 
+<ui:with field='icons' type='ie.wombat.omr.ui.client.IconResources'/>
+-->
+
+<ui:image field="acceptIcon" src="accept.png" />
+<ui:image field="cancelIcon" src="cancel.png" />  
+  
+<g:DialogBox text="Create new project">
+<g:VerticalPanel>
+<g:HorizontalPanel>
+<g:Label>Project name</g:Label>
+<g:TextBox ui:field="projectName"></g:TextBox>
+</g:HorizontalPanel>
+<g:HTMLPanel>
+<span ui:field="message"></span>
+</g:HTMLPanel>
+
+
+<g:HorizontalPanel>
+<g:Button ui:field="createBtn"><img src='{acceptIcon.getURL}' />Create</g:Button>
+<g:Button ui:field="cancelBtn"><img src='{cancelIcon.getURL}' />Cancel</g:Button>
+</g:HorizontalPanel>
+
+</g:VerticalPanel>
+</g:DialogBox>
+    
+</ui:UiBinder>

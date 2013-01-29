@@ -1,0 +1,166 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:mail='urn:import:ie.wombat.ha.ui.client'>
+
+  <ui:image field='logo' src='logo.png'/>
+
+  <ui:style>
+  .panel {padding: 10px; border:1px solid #888;}
+  h1 {background-color:#ccc;color:yellow;font-size:14pt;}
+  @sprite .logo {
+    gwt-image: 'logo';
+    float: right;
+    padding-right: 1em;
+  }
+  
+  
+  .tabPanelExample1{margin: 10px;}
+   
+  </ui:style>
+
+<g:VerticalPanel>
+ 
+  <g:HTMLPanel><h1><span ui:field='heading'></span></h1></g:HTMLPanel>
+ 
+  
+   <g:TabLayoutPanel addStyleNames="{style.tabPanelExample1}" 
+   ui:field="tabPanel" barUnit="PX" barHeight="18" width="620px" height="450px">
+        <g:tab>
+            <g:header>
+                Properties
+            </g:header>
+            <g:VerticalPanel>
+            <g:HTML>
+            <div class='{style.logo}'/>
+            
+             Addr16:<span ui:field="addr16Span"></span>
+             
+            <div>ZCL Version: <span ui:field="zclVersionEl"></span></div>
+            <div>App Version: <span ui:field="appVersionEl"></span></div>
+	<div>Stack Version: <span ui:field="stackVersionEl"></span></div>
+	<div>HW Version: <span ui:field="hwVersionEl"></span></div>
+	<div>Manufacturer: <span ui:field="manufacturerEl"></span></div>
+	<div>Model ID: <span ui:field="modelIdEl"></span></div>
+	<div>Date: <span ui:field="dateEl"></span></div>
+	<div>Power: <span ui:field="powerEl"></span></div>
+	<div>Node Descriptor: <span ui:field="nodeDescriptorEl"></span></div>
+	<div>Endpoints: <span ui:field="epEl"></span></div>
+	<div>Simple Descriptor: <span ui:field="simpleDescriptorEl"></span></div>
+	</g:HTML>
+	
+	<g:FlowPanel>
+	<g:Button ui:field="getAddr16Btn">Get Addr16</g:Button>
+	<g:Button ui:field="getDeviceInfoBtn">Get Device Info</g:Button>
+	<g:Button ui:field="getNodeDescBtn">Get Node Descriptor</g:Button>
+	<g:Button ui:field="getSimpleDescBtn">Get Simple Descriptor</g:Button>
+	</g:FlowPanel>
+	
+	<g:FlowPanel ui:field="epBtnPanel">
+	<g:Label>End Points:</g:Label>
+	</g:FlowPanel>
+	
+	</g:VerticalPanel>
+	
+        </g:tab>
+       
+        <g:tab>
+            <g:header>
+                Bindings
+            </g:header>
+            
+            <g:VerticalPanel>
+            <g:HTML>
+            <span ui:field="bindTableEl"></span>
+            </g:HTML>
+            
+            <g:HorizontalPanel>
+            
+           <g:VerticalPanel ui:field="bindingTablePanel">
+           </g:VerticalPanel>
+            
+            <g:VerticalPanel>
+             	<g:Label>Source EP</g:Label>
+        		<g:IntegerBox ui:field="bindSrcEpField"></g:IntegerBox>
+        		
+        		<g:Label>Destination EP</g:Label>
+        		<g:IntegerBox ui:field="bindDstEpField"></g:IntegerBox>
+        		
+        		<g:Label>Cluster ID</g:Label>
+        		<g:IntegerBox ui:field="bindClusterIdField"></g:IntegerBox>
+        		
+        		<g:Label>Destination Device ID</g:Label>
+        		<g:IntegerBox ui:field="bindDstDeviceIdField"></g:IntegerBox>
+        		
+        		
+        		<g:Button ui:field="setBindBtn">Bind</g:Button>
+        		
+        	</g:VerticalPanel>
+        	
+        	</g:HorizontalPanel>
+        	
+            </g:VerticalPanel>
+        </g:tab>
+      
+      
+       <g:tab>
+        	<g:header>Reporting</g:header>
+        	<g:FormPanel>
+        	<g:VerticalPanel>
+        	        	
+        	    <g:Label>End Point</g:Label>
+        		<g:IntegerBox ui:field="endPointField"></g:IntegerBox>
+        		
+        	    <g:Label>Cluster ID</g:Label>
+        		<g:IntegerBox ui:field="clusterIdField"></g:IntegerBox>
+        		
+        		<g:Label>Attribute ID</g:Label>
+        		<g:IntegerBox ui:field="attrIdField"></g:IntegerBox>
+        		
+        		<g:Button ui:field="getReportCfgBtn">Query Configuration</g:Button>
+        		<g:HTMLPanel>
+        		<span ui:field="reportingCfg">(reporting info here)</span>
+        		</g:HTMLPanel>
+        		
+        		<g:Label>Interval Period (s)</g:Label>
+        		<g:IntegerBox ui:field="minIntervalField"></g:IntegerBox>
+        
+        		<g:Button ui:field="setReportCfgBtn">Set Configuration</g:Button>
+        		
+        		</g:VerticalPanel>
+        	</g:FormPanel>
+        </g:tab>
+        
+        <g:tab>
+            <g:header>
+                End Points
+            </g:header>
+            <g:HTMLPanel>
+            
+            <g:TabLayoutPanel ui:field="endPointsTabPanel" addStyleNames="{style.tabPanelExample1}" 
+    barUnit="PX" barHeight="18" width="600px" height="430px" />
+            
+            </g:HTMLPanel>
+        </g:tab>
+        
+        <g:tab>
+        	 <g:header>
+                Identity
+            </g:header>
+            <g:HTMLPanel>
+            <g:Button ui:field="idBtn" text="Blink My LED!" />
+            </g:HTMLPanel>
+        </g:tab>
+        
+    </g:TabLayoutPanel>
+    
+  	 <g:HTMLPanel>
+    
+
+	
+	
+	
+	
+	</g:HTMLPanel> 
+  
+  </g:VerticalPanel>
+</ui:UiBinder>

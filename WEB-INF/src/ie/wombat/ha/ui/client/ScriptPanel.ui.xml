@@ -1,0 +1,16 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  >
+
+<g:VerticalPanel>
+ 
+  <g:HTMLPanel><h1><span ui:field='heading'></span></h1></g:HTMLPanel>
+ 
+  <g:TextArea ui:field="scriptIn" width="640px" height="180px"></g:TextArea>
+  
+  <g:Button ui:field="execBtn">Execute</g:Button>
+  <g:TextArea ui:field="scriptOut" width="640px" height="180px"></g:TextArea>
+  
+  
+</g:VerticalPanel>
+</ui:UiBinder>

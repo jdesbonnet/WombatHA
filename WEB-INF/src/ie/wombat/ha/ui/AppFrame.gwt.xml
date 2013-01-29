@@ -1,0 +1,31 @@
+<module>
+
+<!-- 
+<define-property name="user.agent" values="ie6,gecko,gecko1_8">
+-->
+
+
+
+	<entry-point class="ie.wombat.ha.ui.client.AppFrame"/>
+
+	<inherits name="com.google.gwt.user.User"/>
+	<inherits name="net.zschech.gwt.comet.Comet" />
+	
+	
+	<!-- 
+	<inherits name="com.google.gwt.user.theme.standard.Standard"/>
+	-->
+	<inherits name="com.google.gwt.user.theme.chrome.Chrome" />
+	
+	
+	<inherits name="com.google.gwt.resources.Resources" />
+	<inherits name="ie.wombat.zigbee.ZigBee" />
+		
+	
+	<!-- 
+	<inherits name="com.mvp4g.Mvp4gModule"/>
+	-->
+	
+
+	
+</module>

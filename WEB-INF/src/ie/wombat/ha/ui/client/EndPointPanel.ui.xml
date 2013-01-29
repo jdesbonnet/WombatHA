@@ -1,0 +1,18 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:mail='urn:import:ie.wombat.ha.ui.client'>
+
+	<g:VerticalPanel>
+	
+	<!-- 
+	<g:HTMLPanel>
+  	<g:Button ui:field="getClustersBtn">Get Clusters</g:Button>
+  	<g:Button ui:field="getBindingsBtn">Get Bindings</g:Button>
+  	</g:HTMLPanel>
+  	-->
+  	 
+  	<g:HTMLPanel><span ui:field='heading'></span></g:HTMLPanel>
+  	
+  	<g:HorizontalPanel ui:field="clustersPanel" />
+  	</g:VerticalPanel>
+</ui:UiBinder>

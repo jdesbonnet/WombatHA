@@ -1,0 +1,23 @@
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:haui='urn:import:ie.wombat.ha.ui.client'>
+
+  <g:DockLayoutPanel unit='EM'>
+    <g:north size='5'>
+      <haui:TopPanel ui:field='topPanel' />
+    </g:north>
+
+    <g:center>
+      <g:SplitLayoutPanel ui:field='contentArea'>
+        <g:west size='192'>
+          <haui:LeftMenu ui:field='shortcuts' />
+        </g:west>
+
+        
+        
+      </g:SplitLayoutPanel>
+    </g:center>
+  </g:DockLayoutPanel>
+
+</ui:UiBinder>

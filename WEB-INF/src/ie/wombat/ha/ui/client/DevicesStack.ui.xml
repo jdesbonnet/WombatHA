@@ -1,0 +1,40 @@
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:mail='urn:import:ie.wombat.ha.ui.client'>
+
+  <ui:style>
+  .tasks {
+    padding: 0.5em;
+    line-height: 150%;
+  }
+  .item {
+    display: block;
+  }
+  </ui:style>
+
+  <g:FlowPanel styleName='{style.tasks}'>
+
+    
+    
+    
+<g:Tree ui:field='tree'  >
+<g:TreeItem text='Zone1'>
+<g:TreeItem text='ZRC - Kitchen' />
+<g:TreeItem text='ZRC - Sitting Room'/>
+<g:TreeItem text='ZRC - Hall'/>
+<g:TreeItem text='Zmove - Hall'/>
+</g:TreeItem>
+
+<g:TreeItem text='Zone2'>
+<g:TreeItem text='ZRC - Landing' />
+<g:TreeItem text='ZRC - Master Bedroom'/>
+<g:TreeItem text='ZRC - Guest Bedroom'/>
+<g:TreeItem text='Zmove - Landing'/>
+</g:TreeItem>
+
+</g:Tree>
+
+
+  </g:FlowPanel>
+</ui:UiBinder>

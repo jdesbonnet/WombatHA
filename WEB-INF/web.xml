@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"  "http://java.sun.com/j2ee/dtds/web-app_2_2.dtd"> 
+	
+<web-app>
+
+
+
+<servlet>
+  <servlet-name>REST Service</servlet-name>
+<servlet-class>
+  com.sun.jersey.spi.container.servlet.ServletContainer
+</servlet-class>
+  <init-param>
+    <param-name>com.sun.jersey.config.property.packages</param-name>
+    <param-value>ie.wombat.ha.restapi</param-value>
+  </init-param>
+  <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+  <servlet-name>REST Service</servlet-name>
+  <url-pattern>/rest/*</url-pattern>
+</servlet-mapping> 
+
+
+<servlet>
+	<servlet-name>ObserveChartServlet</servlet-name>
+    <servlet-class>ie.wombat.ha.server.ObserveChartServlet</servlet-class>
+</servlet>
+
+
+<servlet>
+	<servlet-name>FoneraServlet</servlet-name>
+    <servlet-class>ie.wombat.ha.nic.FoneraServlet</servlet-class>
+</servlet>
+
+
+  <servlet>
+    <servlet-name>greetServlet</servlet-name>
+    <servlet-class>ie.wombat.ha.ui.server.GreetingServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>greetServlet</servlet-name>
+    <url-pattern>/war/wombathaui/greet</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>getDevicesServlet</servlet-name>
+    <servlet-class>ie.wombat.ha.ui.server.GetDevicesServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>getDevicesServlet</servlet-name>
+    <url-pattern>/war/ie.wombat.ha.ui.AppFrame/getdev</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>dataServlet</servlet-name>
+    <servlet-class>ie.wombat.ha.ui.server.DataServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dataServlet</servlet-name>
+    <url-pattern>/war/ie.wombat.ha.ui.AppFrame/getdata</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>heatingServlet</servlet-name>
+    <servlet-class>ie.wombat.ha.ui.server.HeatingServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>heatingServlet</servlet-name>
+    <url-pattern>/war/ie.wombat.ha.ui.AppFrame/heating</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet>
+    <servlet-name>zigbeeServlet</servlet-name>
+    <servlet-class>ie.wombat.ha.ui.server.ZigBeeServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>zigbeeServlet</servlet-name>
+    <url-pattern>/war/ie.wombat.ha.ui.AppFrame/zb</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>zdoServlet</servlet-name>
+    <servlet-class>ie.wombat.ha.ui.server.ZDOServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>zdoServlet</servlet-name>
+    <url-pattern>/war/ie.wombat.ha.ui.AppFrame/zdo</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>addrServlet</servlet-name>
+    <servlet-class>ie.wombat.ha.ui.server.AddressServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addrServlet</servlet-name>
+    <url-pattern>/war/ie.wombat.ha.ui.AppFrame/addr</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>scriptServlet</servlet-name>
+    <servlet-class>ie.wombat.ha.ui.server.ScriptServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>scriptServlet</servlet-name>
+    <url-pattern>/war/ie.wombat.ha.ui.AppFrame/script</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>H2Console</servlet-name>
+    <servlet-class>org.h2.server.web.WebServlet</servlet-class>
+    <init-param>
+        <param-name>webAllowOthers</param-name>
+        <param-value></param-value>
+    </init-param>
+    <!--
+    <init-param>
+        <param-name>trace</param-name>
+        <param-value></param-value>
+    </init-param>
+    -->
+    <load-on-startup>1</load-on-startup>
+</servlet>
+
+  
+
+
+<servlet-mapping>
+    <servlet-name>ObserveChartServlet</servlet-name>
+    <url-pattern>/c/*</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+    <servlet-name>FoneraServlet</servlet-name>
+    <url-pattern>/fonxbeev0/*</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+    <servlet-name>H2Console</servlet-name>
+    <url-pattern>/console/*</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+		<servlet-name>PacketLogServlet</servlet-name>
+		<servlet-class>ie.wombat.ha.ui.server.PacketLogServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>PacketLogServlet</servlet-name>
+	<url-pattern>/packetlog</url-pattern>
+</servlet-mapping>
+
+<!--  -->
+<!--  Context parameters -->
+<!--  -->
+
+  <context-param>
+         <param-name>PARAMETER_ENCODING</param-name>
+         <param-value>UTF-8</param-value>
+  </context-param>
+
+
+	<!-- H2 DB configuration -->
+	<context-param>
+		<param-name>db.url</param-name>
+		<param-value>jdbc:h2:~/ha</param-value>
+	</context-param>
+	<context-param>
+	<param-name>db.user</param-name>
+		<param-value>sa</param-value>
+	</context-param>
+	<context-param>
+		<param-name>db.password</param-name>
+		<param-value></param-value>
+	</context-param>
+	<context-param>
+		<param-name>db.tcpServer</param-name>
+		<param-value>-tcpAllowOthers</param-value>
+	</context-param>
+	
+	
+<listener>
+	<listener-class>ie.wombat.ha.HAStarter</listener-class>
+	<!--
+    <listener-class>org.h2.server.web.DbStarter</listener-class>
+    -->
+    <listener-class>ie.wombat.ha.EndOfRequestCleanup</listener-class>
+    
+</listener>
+	
+<!-- -->
+<!-- Servlet Mapping Section -->
+<!-- -->
+
+
+<locale-encoding-mapping-list>
+<locale-encoding-mapping>
+<locale>en</locale>
+<encoding>UTF-8</encoding>
+</locale-encoding-mapping>
+</locale-encoding-mapping-list>
+
+</web-app>

@@ -1,0 +1,52 @@
+<!DOCTYPE ui:UiBinder 
+  SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent"
+>
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:mail='urn:import:ie.wombat.ha.ui.client'>
+
+  <ui:image field='logo' src='logo.png'/>
+
+  <!-- IE6 cannot handle transparent png, which is what ImageResource creates -->
+  <ui:data field='logoIe6Data' src='logo.png' />
+
+  <ui:style>
+.swTitle {position:absolute;margin-left:96px;font-size:48px;}
+	
+  .statusDiv {
+    text-align: right;
+    margin: 1em;
+  }
+
+  .linksDiv {
+    text-align: right;
+  }
+
+
+    @sprite .logo {
+      gwt-image: 'logo';
+      position: absolute;
+      left:20px;
+    }
+  
+  </ui:style>
+
+  <g:HTMLPanel>
+    <div class='{style.logo}'/>
+    <div class='{style.swTitle}'>ZigBee Network Console <span ui:field="networkId"></span></div>
+    <div class="{style.statusDiv}">
+    
+       
+      <div>
+        <b>jdesbonnet@gmail.com</b> logged in
+      </div>
+
+      <div class='{style.linksDiv}'>
+        <g:Anchor href='javascript:;' ui:field='signOutLink'>Sign Out</g:Anchor>
+        &nbsp;
+        <g:Anchor href='javascript:;' ui:field='aboutLink'>About</g:Anchor>
+      </div>
+    </div>
+  </g:HTMLPanel>
+</ui:UiBinder>

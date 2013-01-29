@@ -1,0 +1,120 @@
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:haui='urn:import:ie.wombat.ha.ui.client'>
+
+  <!--
+      GIFs needed for ie6 work arounds. Can't use <ui:image>, it makes PNGs
+   -->
+   <!-- 
+  <ui:data field='mailboxesgroupIe6Data' src='mailboxesgroup_ie6.gif' />
+  <ui:data field='tasksgroupIe6Data' src='tasksgroup_ie6.gif' />
+  <ui:data field='contactsgroupIe6Data' src='contactsgroup_ie6.gif' />
+	-->
+  <ui:style>
+  .shortcuts {
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+  }
+  .myGradient {
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.31, rgb(235,226,56)),
+    color-stop(0.66, rgb(255,255,204))
+);
+background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(235,226,56) 31%,
+    rgb(255,255,204) 66%
+);
+  }
+  
+
+  @sprite .stackHeader {
+    gwt-image: 'gradient';
+    background-color: #b4b6bc;
+    cursor: pointer;
+
+    text-shadow: rgba(255, 255, 255, 1) 0 1px 1px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #000;
+    padding: .7em .5em 0 .6em;
+    border-top: 1px solid #888;
+  }
+
+ 
+    @sprite .mailboxesIcon {
+      gwt-image: 'mailboxesgroup';
+      float: left;
+		padding-right:5px;
+    }
+  
+    @sprite .tasksIcon {
+      gwt-image: 'tasksgroup';
+      float: left;
+		padding-right:5px;
+    }
+  
+    @sprite .contactsIcon {
+      gwt-image: 'contactsgroup';
+      float: left;
+		padding-right:5px;
+    }
+  
+  </ui:style>
+
+
+<ui:image field='mailboxesgroup' src='folder.png'/>
+<ui:image field='contactsgroup' src='contactsgroup.png'/>
+<ui:image field='tasksgroup' src='cog.png'/>
+<ui:image field="add" src="add.png" />
+
+<ui:image field='gradient' src='gradient_bg_dark.png' repeatStyle='Horizontal'/>
+
+  <g:StackLayoutPanel styleName='{style.shortcuts}' unit='EM'>
+  
+  <!-- 
+    <g:stack>
+      <g:header size='3'><div class='{style.stackHeader}'><div class='{style.mailboxesIcon}'/> Projects</div></g:header>
+      <g:VerticalPanel>
+      <haui:Projects ui:field='projects'/>
+      <g:FlowPanel>
+      <g:Button ui:field="createProjectBtn"><img src="{add.getURL}" />Create project</g:Button>
+      </g:FlowPanel>
+      </g:VerticalPanel>
+    </g:stack>
+	-->
+	
+	<g:stack>
+      <g:header size='3'>
+      <div class='{style.stackHeader}'><div class='{style.tasksIcon}'/>Apps</div>
+      </g:header>
+      <haui:AppsStack ui:field='apps'  />
+    </g:stack>
+	
+    <g:stack>
+      <g:header size='3'>
+      <div class='{style.stackHeader}'><div class='{style.tasksIcon}'/>Devices</div>
+      </g:header>
+      <haui:DevicesStack ui:field='devices'  />
+    </g:stack>
+	
+	<g:stack>
+      <g:header size='3'><div class='{style.stackHeader}'>
+      <div class='{style.tasksIcon}'/> Tools</div>
+      </g:header>
+      <haui:ToolsStack ui:field='tools'/>
+    </g:stack>
+    
+    
+    <g:stack>
+      <g:header size='3'><div class='{style.stackHeader}'><div class='{style.contactsIcon}'/> Settings</div></g:header>
+      <haui:Settings ui:field='settings'/>
+    </g:stack>
+    
+  </g:StackLayoutPanel>
+</ui:UiBinder>

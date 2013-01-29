@@ -1,0 +1,26 @@
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:mail='urn:import:ie.wombat.ha.ui.client'>
+
+  <ui:style>
+  .tasks {
+    padding: 0.5em;
+    line-height: 150%;
+  }
+  .item {
+    display: block;
+  }
+  </ui:style>
+  
+<!--
+  <g:FlowPanel styleName='{style.contacts}' ui:field='panel'/>
+ -->
+ 
+    <g:FlowPanel ui:field='panel'>
+  
+    <g:CheckBox styleName='{style.item}'>Logging Enabled</g:CheckBox>
+    <g:CheckBox styleName='{style.item}'>Encryption Enabled</g:CheckBox>
+    </g:FlowPanel>
+    
+</ui:UiBinder>

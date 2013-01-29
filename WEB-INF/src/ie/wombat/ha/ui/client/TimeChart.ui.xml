@@ -1,0 +1,104 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:c='urn:import:com.google.gwt.canvas.client'
+  xmlns:ha='urn:import:ie.wombat.ha.ui.client'>
+
+<ui:image field="systemHealthOK" src="accept.png"/>
+<ui:image field="systemHealthAlert" src="error.png"/>
+
+<ui:style>
+h1 {font-size:16px; font-weight:bold; padding:2px;margin:0 2px;color:black;}
+.timeChartBtn {
+	width:36px; height:36px;
+	padding:4px;margin:2px;
+	font-size:20px;
+	font-weight:bold;
+}
+.h {text-weight:bold;}
+.ttv {width:64px;font-size:18px;font-weight:bold;text-align:center;margin:0 1em;}
+.ttvx {}
+
+.sideBox {border:1px solid #ccc; border-radius:5px; padding:5px;margin:5px 0;}
+
+</ui:style>
+
+<g:VerticalPanel>
+ 
+  <g:HTMLPanel><h1><span ui:field='heading'></span></h1></g:HTMLPanel>
+ 
+ <g:HorizontalPanel>
+ 	
+ 	<g:VerticalPanel ui:field="canvasWrapper"></g:VerticalPanel>
+ 	
+ 	<g:VerticalPanel>
+ 	
+ 	<g:HTML><h1>Target Temperature</h1></g:HTML>
+ 	<g:HorizontalPanel>
+ 	
+ 	 	<g:Button ui:field="decTriggerBtn" styleName="{style.timeChartBtn}">–</g:Button>
+ 		<g:HTML addStyleNames="{style.ttvx}">
+ 		<div style="width:64px;font-size:18px;font-weight:bold;text-align:center;margin:0 1em;text-align:center;">
+ 		<span ui:field="triggerTemperatureValue"></span>
+ 		</div>
+ 		<div style="text-align:center;">
+ 		<span ui:field="calcCostPerDay"></span>
+ 		</div>
+ 		</g:HTML>
+ 	 	<g:Button ui:field="incTriggerBtn" styleName="{style.timeChartBtn}">+</g:Button>
+ 	
+ 	</g:HorizontalPanel>
+
+	<g:HTMLPanel addStyleNames="{style.sideBox}">
+	<img src="{systemHealthOK.getURL}" alt="System normal"/> System normal.
+	<span ui:field="systemStatus"></span>
+	</g:HTMLPanel> 
+	
+ 	<g:HTMLPanel addStyleNames="{style.sideBox}">
+ 	<h1>Temperature</h1>
+ 	<table>
+ 	<tr><td>Min:</td><td><span ui:field="minTemperatureField"></span></td></tr>
+ 	<tr><td>Max:</td><td><span ui:field="maxTemperatureField"></span></td></tr>
+ 	<tr><td>Mean:</td><td><span ui:field="meanTemperatureField"></span></td></tr>
+ 	</table>
+ 	</g:HTMLPanel>
+ 	
+ 	 <g:HTMLPanel addStyleNames="{style.sideBox}">
+ 	<h1>Heating</h1>
+ 	<table>
+ 	<tr><td>Duty:</td><td><span ui:field="dutyCycle">2.5h (34%)</span></td></tr>
+ 	</table>
+ 	</g:HTMLPanel>
+ 	
+ 	
+ 		<g:HTML><h1>Cost</h1></g:HTML>
+ 	<g:HTMLPanel>
+ 	<g:Label>Cost/Day:</g:Label><span ui:field="cpd"></span>
+ 	
+ 	</g:HTMLPanel>
+ 	</g:VerticalPanel>
+ 	
+ 	</g:HorizontalPanel>
+  
+  <g:HorizontalPanel>
+  <g:Button ui:field="tr3hBtn">3h</g:Button>
+  <g:Button ui:field="tr12hBtn">12h</g:Button>
+  <g:Button ui:field="tr1dBtn">24h</g:Button>
+  <g:Button ui:field="tr2dBtn">48h</g:Button>
+  <g:Button ui:field="tr7dBtn">7d</g:Button>
+  
+  	<g:Label>Zone1</g:Label>
+    <g:Button ui:field="z1OnBtn">Zone1 On</g:Button>
+    <g:Button ui:field="z1OffBtn">Zone1 Off</g:Button>
+    
+    <g:Label>Zone2</g:Label>
+    <g:Button ui:field="z2OnBtn">Zone2 On</g:Button>
+    <g:Button ui:field="z2OffBtn">Zone2 Off</g:Button>
+    
+    <g:Label>Zone3</g:Label>
+    <g:Button ui:field="z3OnBtn">Zone3 On</g:Button>
+    <g:Button ui:field="z3OffBtn">Zone3 Off</g:Button>
+    
+    
+  </g:HorizontalPanel>
+  </g:VerticalPanel>
+</ui:UiBinder>
