@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="WEB-INF/src"/>
+	<classpathentry kind="src" output="work" path="work"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-math-2.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/RXTXcomm.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/hibernate-3.6.4.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/hibernate-jpa-2.0-api-1.0.0.Final.jar" sourcepath="/home/joe/.m2/repository/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.0.Final/hibernate-jpa-2.0-api-1.0.0.Final-sources.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/log4j-over-slf4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/jcommon-1.0.8.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/jfreechart-1.0.4.jar" sourcepath="/home/joe/.m2/repository/jfree/jfreechart/1.0.4/jfreechart-1.0.4-sources.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-httpclient-3.0.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/gwt-comet-1.2.3.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/bsh-2.1b4.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/bsh-2.0b4.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/jersey-core-1.12.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/jersey-server-1.12.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/servlet-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/jasper.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/jsp-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/el-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/annotations-api.jar"/>
+	<classpathentry kind="output" path="WEB-INF/classes"/>
+</classpath>
