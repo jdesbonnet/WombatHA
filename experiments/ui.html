@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Heating System UI</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0-beta.1/jquery.mobile-1.3.0-beta.1.min.css" />
+	<link rel="stylesheet" href="ui.css" />
+	<script src="//code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="ui.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.0-beta.1/jquery.mobile-1.3.0-beta.1.min.js"></script>
+	
+</head>
+<body>
+
+
+<!-- Based on jQuery Mobile Demo code -->
+
+<div data-role="page" class="type-home">
+	<div data-role="content">
+		<p class="jqm-version"></p>
+
+		<div class="content-secondary">
+
+			<div id="jqm-homeheader">
+				<h1 id="jqm-logo"><img src="logo.png" alt="Heating UI logo" /></h1>
+				<p>A Touch-Optimized UI Framework built with jQuery and HTML5.</p>
+			</div>
+
+
+			<p class="intro"><strong>Welcome.</strong> Heating UI</p>
+
+			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f">
+				<li data-role="list-divider">Overview</li>
+				<li><a href="z1.html">Zone 1</a> </li>
+				<li><a href="t2.html">Quick start guide</a></li>
+				<li><a href="t3.html">Features</a></li>
+			</ul>
+
+		</div><!--/content-primary-->
+
+		<div class="content-primary">
+			<nav>
+
+<div class="zone_on_off_btn">
+<button id="zone_1_ON" data-inline="true" data-icon="check">Zone 1 On</button>
+<button id="zone_1_OFF" data-inline="true" data-icon="delete">Zone 1 Off</button>
+
+<br />
+
+<button id="zone_2_ON" data-inline="true" data-icon="check">Zone 2 On</button>
+<button id="zone_2_OFF" data-inline="true" data-icon="delete">Zone 2 Off</button>
+
+<br />
+
+<button data-inline="true" data-icon="check">Zone 3 On</button>
+<button data-inline="true" data-icon="delete">Zone 3 Off</button>
+</div>
+
+
+
+				<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+					<li data-role="list-divider">Components</li>
+					<li><a href="t4.html">Pages &amp; dialogs</a></li>
+					<li><a href="t5.html">Toolbars</a></li>
+					
+
+					<li data-role="list-divider">API</li>
+					<li><a href="t6.html">Configuring defaults</a></li>
+					
+
+				</ul>
+			</nav>
+		</div>
+
+
+
+	</div>
+
+	<div data-role="footer" class="footer-docs" data-theme="c">
+            <p class="jqm-version"></p>
+			<p>&copy; 2010, 2013 jQuery Foundation and other contributors</p>
+	</div>
+
+</div>
+
+</body>
+</html>
