@@ -43,33 +43,48 @@
 			<nav>
 
 <div class="zone_on_off_btn">
-<button id="zone_1_ON" data-inline="true" data-icon="check">Zone 1 On</button>
-<button id="zone_1_OFF" data-inline="true" data-icon="delete">Zone 1 Off</button>
 
-<br />
 
-<button id="zone_2_ON" data-inline="true" data-icon="check">Zone 2 On</button>
-<button id="zone_2_OFF" data-inline="true" data-icon="delete">Zone 2 Off</button>
-
-<br />
-
-<button data-inline="true" data-icon="check">Zone 3 On</button>
-<button data-inline="true" data-icon="delete">Zone 3 Off</button>
-</div>
 
 
 
 				<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
-					<li data-role="list-divider">Components</li>
-					<li><a href="t4.html">Pages &amp; dialogs</a></li>
-					<li><a href="t5.html">Toolbars</a></li>
+					<li data-role="list-divider">Heating Zones</li>
+					<li>
+					<a href="zone.html?zone=1">Zone 1</a>
+					<div data-role="controlgroup" data-type="horizontal">
+					<button id="zone_1_ON" data-inline="true" data-mini="true" data-icon="check">On</button>
+					<button id="zone_1_AUTO" data-inline="true" data-mini="true" data-icon="gear">Auto</button>
+					<button id="zone_1_OFF" data-inline="true" data-mini="true" data-icon="delete">Off</button>
+					</div>			
+					</li>
 					
+					<li>
+					<a href="zone.html?zone=2">Zone 2</a>
+					<div data-role="controlgroup" data-type="horizontal">
+					<button id="zone_2_ON" data-inline="true" data-mini="true" data-icon="check">On</button>
+					<button id="zone_2_AUTO" data-inline="true" data-mini="true" data-icon="gear">Auto</button>
+					<button id="zone_2_OFF" data-inline="true" data-mini="true" data-icon="delete">Off</button>
+					</div>			
+					</li>
+					
+					<li>
+					<a href="zone.html?zone=3">Zone 3</a>
+					<div data-role="controlgroup" data-type="horizontal">
+					<button id="zone_3_ON" data-inline="true" data-mini="true" data-icon="check">On</button>
+					<button id="zone_3_AUTO" data-inline="true" data-mini="true" data-icon="gear">Auto</button>
+					<button id="zone_3_OFF" data-inline="true" data-mini="true" data-icon="delete">Off</button>
+					</div>			
+					</li>
 
 					<li data-role="list-divider">API</li>
 					<li><a href="t6.html">Configuring defaults</a></li>
 					
 
 				</ul>
+				
+</div>
+
 			</nav>
 		</div>
 
@@ -79,7 +94,7 @@
 
 	<div data-role="footer" class="footer-docs" data-theme="c">
             <p class="jqm-version"></p>
-			<p>&copy; 2010, 2013 jQuery Foundation and other contributors</p>
+			<p>&copy; 2013 Heating UI</p>
 	</div>
 
 </div>
