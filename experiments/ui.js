@@ -8,7 +8,11 @@ $(function(){
 		var p = this.id.split("_");
 		var zone = (p[1] | 0) -1;
 		var mode = p[2];
-		$.post ("../jsp/setheating.async.jsp","app_id=1&t=25&zone=" + zone + "&mode=" + mode)
+		$.post ("../jsp/setheating.async.jsp","app_id=1&t=25&zone=" + zone + "&mode=" + mode);
+		//alert ($(this));
+		//$(this).attr("data-theme","a");
+		//$("body").trigger("pageshow"); 
+
 	});
 	
 });
