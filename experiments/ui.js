@@ -1,4 +1,4 @@
-//collapse page navs after use
+//collapse page navs after use	
 $(function(){
 	$('body').delegate('.content-secondary .ui-collapsible-content', 'click',  function(){
 		$(this).trigger("collapse");
@@ -8,10 +8,12 @@ $(function(){
 		var p = this.id.split("_");
 		var zone = (p[1] | 0) -1;
 		var mode = p[2];
-		$.post ("../jsp/setheating.async.jsp","app_id=1&t=25&zone=" + zone + "&mode=" + mode);
-		//alert ($(this));
-		//$(this).attr("data-theme","a");
-		//$("body").trigger("pageshow"); 
+		$.post ("../jsp/setheating.async.jsp","app_id=1&t=25&zone=" + zone + "&mode=" + mode,
+				function () {
+					getZoneModes();
+		}
+		);
+	
 
 	});
 	
@@ -107,3 +109,62 @@ $( document ).on( "pageload", function( e, data ) {
 		});
 	}
 });
+
+
+
+function getZoneModes () {	
+	console.log('calling get-zone-modes');
+
+	$.getJSON("../jsp/heating/get-zone-modes.async.jsp?" + "&app_id=" + $.getUrlVar('app_id') ,
+			function(o) {
+				console.log('success call to get-zone-modes');
+				var zones = o.result;
+				var i,n;
+				for (i = 0, n = zones.length; i < n; i++) {
+					if (zones[i].mode) {
+						//$("[name=zm_" + o[i].id + "]").filter("[value=" + o[i].mode + "]").prop("checked",true);
+						$("#zm_" + zones[i].id).html(zones[i].mode);
+					}
+				}
+			}	
+	);
+}
+
+$(function() {
+	
+	$.ajaxSetup({
+		error:function(x,e) {
+			console.log('ajax error ' + e);
+			//$("#message").html("status=" + x.status + " e=" + e);
+		}
+	});
+
+	
+	// Periodically update the chart and move forward in time
+	setInterval(function () {
+		getZoneModes();
+	} ,10000);
+		
+	getZoneModes();
+
+});
+
+
+// http://jquery-howto.blogspot.com/2009/09/get-url-parameters-values-with-jquery.html
+$.extend({
+	  getUrlVars: function(){
+	    var vars = [], hash;
+	    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	    for(var i = 0; i < hashes.length; i++)
+	    {
+	      hash = hashes[i].split('=');
+	      vars.push(hash[0]);
+	      vars[hash[0]] = hash[1];
+	    }
+	    return vars;
+	  },
+	  getUrlVar: function(name){
+	    return $.getUrlVars()[name];
+	  }
+	});
+	
