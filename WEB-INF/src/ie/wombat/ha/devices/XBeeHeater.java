@@ -25,21 +25,6 @@ public class XBeeHeater extends XBeeSeries2 implements HeatingDevice {
 		super(address64, address16, nic);
 	}
 	
-	@Deprecated
-	public void setHeatingLine (int line) {
-		//this.line = line;
-	}
-	
-	@Deprecated
-	public void setState (boolean b) {
-		setState(0,b);
-	}
-	
-	@Deprecated
-	public boolean getState () {
-		return state[0];
-	}
-	
 	public void setState(int zone, boolean b) {
 	
 		log.info ("setState(zone=" + zone + ", state=" + b + ")");
