@@ -16,6 +16,7 @@ import ie.wombat.ha.ZigBeePacketListener;
 import ie.wombat.ha.app.AppBase;
 import ie.wombat.ha.devices.CleodeZRC;
 import ie.wombat.ha.devices.HeatingDevice;
+import ie.wombat.ha.devices.TemperatureSensor;
 import ie.wombat.ha.server.DataLogRecord;
 import ie.wombat.ha.ui.client.Data;
 
@@ -62,10 +63,10 @@ public class HeatingApp extends AppBase implements ZigBeePacketListener  {
 	private float[] targetTemperature  = new float[NZONE];
 	
 	// A sensor is located in each zone
-	private CleodeZRC[] sensor = new CleodeZRC[NZONE];
+	private TemperatureSensor[] sensor = new TemperatureSensor[NZONE];
 	
 	// A sensor outside (optional)
-	private CleodeZRC externalSensor;
+	private TemperatureSensor externalSensor;
 	
 	// One central heating controller
 	private HeatingDevice heater;
@@ -185,10 +186,10 @@ public class HeatingApp extends AppBase implements ZigBeePacketListener  {
 	}
 	
 	// TODO: need to make this abstract
-	public CleodeZRC getSensorDevice (int zone) {
+	public TemperatureSensor getSensorDevice (int zone) {
 		return sensor[zone];
 	}
-	public CleodeZRC getExternalSensorDevice () {
+	public TemperatureSensor getExternalSensorDevice () {
 		return externalSensor;
 	}
 	
