@@ -177,7 +177,7 @@ public class XBeeSeries2 extends DeviceDriver  {
 		
 		
 		ZigBeeCommand zcmd = new ZigBeeCommand(nic);
-		zcmd.setAddress16(getAddress16());
+		zcmd.setAddress16(Address16.UNKNOWN);
 		zcmd.setAddress64(getAddress64()); // EXP
 		zcmd.setProfileId(profileId);
 		zcmd.setClusterId(clusterId);
@@ -314,7 +314,7 @@ public class XBeeSeries2 extends DeviceDriver  {
 			cmd[16+i] = params[i];
 		}
 		
-		nic.sendZigBeeCommand(this.address64, this.address16, clusterId, profileId, srcEp, dstEp, cmd);
+		nic.sendZigBeeCommand(this.address64, Address16.UNKNOWN, clusterId, profileId, srcEp, dstEp, cmd);
 	}
 	
 	
@@ -374,7 +374,7 @@ public class XBeeSeries2 extends DeviceDriver  {
 		int clusterId = 0x0011;
 		int srcEp = 232;
 		int dstEp = 232;
-		nic.sendZigBeeCommand(address64,address16, clusterId, profileId, srcEp, dstEp, data);
+		nic.sendZigBeeCommand(address64,Address16.UNKNOWN, clusterId, profileId, srcEp, dstEp, data);
 	}
 
 	
