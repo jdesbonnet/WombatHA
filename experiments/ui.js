@@ -8,10 +8,12 @@ $(function(){
 		var p = this.id.split("_");
 		var zone = (p[1] | 0) -1;
 		var mode = p[2];
+		$(this).data("theme","a");
+		$("#zm_" + zone).html("⌛");
 		$.post ("../jsp/setheating.async.jsp","app_id=1&t=25&zone=" + zone + "&mode=" + mode,
 				function () {
 					getZoneModes();
-		}
+				}
 		);
 	
 
@@ -122,7 +124,6 @@ function getZoneModes () {
 				var i,n;
 				for (i = 0, n = zones.length; i < n; i++) {
 					if (zones[i].mode) {
-						//$("[name=zm_" + o[i].id + "]").filter("[value=" + o[i].mode + "]").prop("checked",true);
 						$("#zm_" + zones[i].id).html(zones[i].mode);
 					}
 				}
