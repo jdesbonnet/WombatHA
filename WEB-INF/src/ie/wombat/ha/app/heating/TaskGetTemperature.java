@@ -1,6 +1,6 @@
 package ie.wombat.ha.app.heating;
 
-import ie.wombat.ha.devices.CleodeZRC;
+import ie.wombat.ha.devices.TemperatureSensor;
 import ie.wombat.zigbee.ZigBeeException;
 
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class TaskGetTemperature implements Runnable {
 			return;
 		}
 		
-		CleodeZRC zrc = app.getSensorDevice(zone);
+		TemperatureSensor zrc = app.getSensorDevice(zone);
 		
 		try {
 			log.debug(logPrefix + "Requesting ZRC temperature zrc=" + zrc);
