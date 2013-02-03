@@ -25,32 +25,16 @@ public class XBeeHeater extends XBeeSeries2 implements HeatingDevice {
 		super(address64, address16, nic);
 	}
 	
-	public void setState(int zone, boolean b) {
-	
+	public void setState(int zone, boolean b) throws IOException {
 		log.info ("setState(zone=" + zone + ", state=" + b + ")");
-				
-		try {
-			setDigitalOutput(zone, b);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		setDigitalOutput(zone, b);
 		this.state[zone] = b;
-		
-		
 	}
 	
-	public boolean getState (int zone)  {
+	public boolean getState (int zone) throws IOException {
 		int state;
-		try {
-			state = getDigitalOutput(zone);
-			log.info("zone state read as " + state);
-
-			return (state == 5);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		state = getDigitalOutput(zone);
+		log.info("zone state read as " + state);
 		return false;
 	}
 	
