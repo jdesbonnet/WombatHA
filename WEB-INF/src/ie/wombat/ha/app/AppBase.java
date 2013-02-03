@@ -21,6 +21,9 @@ public abstract class AppBase {
 	private HANetwork network;
 	private HashMap<String,String> config = new HashMap<String,String>();
 	
+	/**
+	 * Used for scheduled commands.
+	 */
 	private ScheduledThreadPoolExecutor stpe;
 
 	public  AppBase (HANetwork network, String configuration) {
