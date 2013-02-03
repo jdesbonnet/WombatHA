@@ -17,7 +17,8 @@ public class Address64 implements Address, Serializable {
 	/** Address which can be used to reach all devices on the network */
 	public static final Address64 BROADCAST = new Address64("00:00:00:00:00:00:FF:FF");
 	
-	/** Used in XBee API when 64 bit address is unknown */
+	/** Used in XBee API when 64 bit address is unknown.
+	 * TODO: verify with reference. */
 	public static final Address64 UNKNOWN = new Address64("FF:FF:FF:FF:FF:FF:FF:FF");
 
 	/** Address which can be used to reach the coordinator */
