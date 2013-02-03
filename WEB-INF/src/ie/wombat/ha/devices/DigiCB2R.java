@@ -76,7 +76,7 @@ public class DigiCB2R extends XBeeSeries2 implements TemperatureSensor, Humidity
 		float[] sensors = new float[3];
 		sensors[SENSOR_LIGHT] = adcToLux(v[SENSOR_LIGHT]);
 		sensors[SENSOR_HUMIDITY] = adcToRH(v[SENSOR_HUMIDITY]);
-		sensors[SENSOR_TEMPERATURE] = adcToLux(v[SENSOR_LIGHT]);
+		sensors[SENSOR_TEMPERATURE] = adcToLux(v[SENSOR_TEMPERATURE]);
 		return sensors;
 	}
 	
