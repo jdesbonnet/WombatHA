@@ -301,6 +301,7 @@ public class XBeeSeries2 extends DeviceDriver  {
 		cmd[2] = 0x00;
 		cmd[3] = (byte)frameId;
 		
+		// TODO: fix hard coded addr64 address
 		Address64 senderAddr64 = new Address64("00:13:A2:00:40:3c:15:5c");
 		System.arraycopy(senderAddr64.getBytesMSBF(), 0, cmd, 4, 8);
 		cmd[12] = 0x00;
@@ -313,7 +314,7 @@ public class XBeeSeries2 extends DeviceDriver  {
 			cmd[16+i] = params[i];
 		}
 		
-		nic.sendZigBeeCommand(this.address16, clusterId, profileId, srcEp, dstEp, cmd);
+		nic.sendZigBeeCommand(this.address64, this.address16, clusterId, profileId, srcEp, dstEp, cmd);
 	}
 	
 	
