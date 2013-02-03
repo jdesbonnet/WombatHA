@@ -3,6 +3,7 @@ package ie.wombat.ha.devices;
 import java.io.IOException;
 
 import ie.wombat.ha.ZigBeeNIC;
+import ie.wombat.zigbee.ZigBeeException;
 import ie.wombat.zigbee.address.Address16;
 import ie.wombat.zigbee.address.Address64;
 
@@ -21,10 +22,10 @@ import ie.wombat.zigbee.address.Address64;
  * Light:
  * lux = (ADC1) /1023.0) * 1200
  * 
- * @author joe
+ * @author Joe Desbonnet, jdesbonnet@gmail.com
  *
  */
-public class DigiCB2R extends XBeeSeries2 {
+public class DigiCB2R extends XBeeSeries2 implements TemperatureSensor, HumiditySensor, LightSensor {
 
 	public static final int SENSOR_LIGHT=0;
 	public static final int SENSOR_HUMIDITY=1;
@@ -73,16 +74,9 @@ public class DigiCB2R extends XBeeSeries2 {
 	public float[] getSensorReadings () throws IOException {
 		int[] v = getADCReadings();
 		float[] sensors = new float[3];
-		
-		// Light. Unit?
-		sensors[SENSOR_LIGHT] = (float)v[SENSOR_LIGHT];
-		
-		// Humidity (1 ADC unit = 0.1% RH)
-		sensors[SENSOR_HUMIDITY] = ((float)v[SENSOR_HUMIDITY])/10f;
-		
-		// Temperature (1 ADC unit = 0.1F)
-		sensors[SENSOR_TEMPERATURE] = (((float)v[SENSOR_TEMPERATURE])-32f) * 5f/9f;
-		
+		sensors[SENSOR_LIGHT] = adcToLux(v[SENSOR_LIGHT]);
+		sensors[SENSOR_HUMIDITY] = adcToRH(v[SENSOR_HUMIDITY]);
+		sensors[SENSOR_TEMPERATURE] = adcToLux(v[SENSOR_LIGHT]);
 		return sensors;
 	}
 	
@@ -95,6 +89,24 @@ public class DigiCB2R extends XBeeSeries2 {
 	}
 	public static float adcToLux(int adc) {
 		return ((float)(adc*1200))/1023f;
+	}
+
+	@Override
+	public float getTemperature() throws ZigBeeException, IOException {
+		float[] sensors = getSensorReadings();
+		return sensors[SENSOR_TEMPERATURE];
+	}
+
+	@Override
+	public float getLight() throws ZigBeeException, IOException {
+		float[] sensors = getSensorReadings();
+		return sensors[SENSOR_TEMPERATURE];
+	}
+
+	@Override
+	public float getRelativeHumidity() throws ZigBeeException, IOException {
+		float[] sensors = getSensorReadings();
+		return sensors[SENSOR_TEMPERATURE];
 	}
 
 }
