@@ -124,12 +124,13 @@ public class HeatingApp extends AppBase implements ZigBeePacketListener  {
 			// Register interest in temperature sensor. The temperature sensor is the Cleode
 			// ZRC which features a TI TMP0?? temperature sensor on EP 2.
 			String sensorAddress = getParameter("sensor_"+i);
+					
 			if (sensorAddress == null) {
 				log.info("Skipping zone " + i + " as no sensor defined");
 				continue;
 			}
 		
-			sensor[i] = (CleodeZRC)network.getDevice(sensorAddress);
+			sensor[i] = (TemperatureSensor)network.getDevice(sensorAddress);
 			if (sensor == null) {
 				log.error ("temperature sensor not found");
 			}
