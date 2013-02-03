@@ -1,6 +1,7 @@
-<%@page 
+<%@page
 import="java.util.List"
 import="java.util.Date"
+import="java.text.DecimalFormat"
 import="ie.wombat.ha.HANetwork"
 import="ie.wombat.ha.app.AppBase"
 import="ie.wombat.ha.app.heating.HeatingApp"
@@ -26,8 +27,7 @@ if (app == null) {
 }
 
 
-response.setContentType("application/json");
-
+DecimalFormat df = new DecimalFormat("#0.0");
 int NZONES = 3;
 
 response.setContentType("application/json");
@@ -43,6 +43,8 @@ for (int zone = 0; zone < NZONES; zone++)  {
 	out.write ("\"id\":" + zone );
 	out.write (",\"name\":\"Zone" + (zone+1) + "\"");
 	out.write (",\"mode\":\"" + app.getZoneMode(zone) + "\"");
+	out.write (",\"temperature\":\"" + df.format(app.getTemperature(zone)) + "\"");
+
 	out.write ("}");
 }
 	
