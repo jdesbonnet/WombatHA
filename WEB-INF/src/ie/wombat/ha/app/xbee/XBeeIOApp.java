@@ -59,10 +59,13 @@ public class XBeeIOApp extends AppBase implements ZigBeePacketListener  {
 
 	public void handleZigBeePacket(ZigBeePacket packet) {
 
+		// Disable check for Address16 because we cannot rely on it.
+		/*
 		if ( ! packet.getSourceAddress16().equals(xbee.getAddress16())) {
 			log.debug ("ignoring packet, expecting src=" + xbee.getAddress16() + " but got " + packet.getSourceAddress16());
 			return;
 		}
+		*/
 		
 		log.debug ("received ZigBee packet for evaluation: payload=" 
 		+ ByteFormatUtils.byteArrayToString(packet.getPayload()));
