@@ -98,15 +98,15 @@ public class DigiCB2R extends XBeeSeries2 implements TemperatureSensor, Humidity
 	}
 
 	@Override
-	public float getLight() throws ZigBeeException, IOException {
+	public float getLux() throws ZigBeeException, IOException {
 		float[] sensors = getSensorReadings();
-		return sensors[SENSOR_TEMPERATURE];
+		return sensors[SENSOR_LIGHT];
 	}
 
 	@Override
 	public float getRelativeHumidity() throws ZigBeeException, IOException {
 		float[] sensors = getSensorReadings();
-		return sensors[SENSOR_TEMPERATURE];
+		return sensors[SENSOR_HUMIDITY];
 	}
 
 }
