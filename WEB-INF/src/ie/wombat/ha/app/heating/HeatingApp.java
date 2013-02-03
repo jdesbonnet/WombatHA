@@ -1,5 +1,6 @@
 package ie.wombat.ha.app.heating;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -163,7 +164,7 @@ public class HeatingApp extends AppBase implements ZigBeePacketListener  {
 	 * @param zone
 	 * @param setting
 	 */
-	public void setZoneMode(int zone, ZoneMode setting) {
+	public void setZoneMode(int zone, ZoneMode setting) throws IOException {
 		
 		log.debug(this + " setting zone " + zone + " mode to " + setting);
 		logEvent("mode_zone_" + zone, setting.toString());
@@ -207,7 +208,12 @@ public class HeatingApp extends AppBase implements ZigBeePacketListener  {
 		if (temperature[zone]>=targetTemperature[zone]) {
 			log.debug ("temperature on or over target, turning heat off");
 			logEvent("heating_state_zone_"+zone, "0");
-			heater.setState(zone,false);
+			try {
+				heater.setState(zone,false);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			if (heatingState[zone] == true) {
 				heatingState[zone] = false;
@@ -216,7 +222,12 @@ public class HeatingApp extends AppBase implements ZigBeePacketListener  {
 		} else {
 			log.debug ("temperature under target, turning heat on");
 			logEvent("heating_state_zone_"+zone, "1");
-			heater.setState(zone,true);
+			try {
+				heater.setState(zone,true);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			if ( heatingState[zone] == false) {
 				heatingState[zone] = true;
@@ -283,7 +294,7 @@ public class HeatingApp extends AppBase implements ZigBeePacketListener  {
 	 * @param zone
 	 * @param b
 	 */
-	public void setHeatingState (int zone, boolean b) {
+	public void setHeatingState (int zone, boolean b) throws IOException {
 		heater.setState(zone,b);
 		// TODO: figure out logging
 		logEvent("zone_" + zone, b ? "1" : "0");
@@ -296,8 +307,9 @@ public class HeatingApp extends AppBase implements ZigBeePacketListener  {
 	 * 
 	 * @param zone
 	 * @return
+	 * @throws IOException 
 	 */
-	public boolean getHeatingState (int zone) {
+	public boolean getHeatingState (int zone) throws IOException {
 		return heater.getState(zone);
 	}
 	
