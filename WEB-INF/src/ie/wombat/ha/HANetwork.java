@@ -175,9 +175,9 @@ public class HANetwork {
 			log.info("pinging nic...");
 			nic.ping();
 			
-			try {
 			log.info("testing nic...");
-			nic.test();
+			try {
+				nic.test();
 			} catch (IOException e) {
 				e.printStackTrace();
 				// otherwise ignore for the moment.. because we need the NIC
@@ -188,14 +188,11 @@ public class HANetwork {
 			nic.addZigBeePacketListener(new ReportAttributesListener());
 		
 			// Keep tabs on last contact from devices
-			//nic.addZigBeePacketListener(this);
-			//LastContactListener lc = new LastContactListener();
 			nic.addZigBeePacketListener(new LastContactListener(networkId));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 			nic = new NullDriver();
-
 		}
 		
 		//
