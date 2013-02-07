@@ -2,6 +2,7 @@ package ie.wombat.ha.nic.xbee;
 
 
 import ie.wombat.ha.ByteFormatUtils;
+import ie.wombat.ha.NetworkMonitor;
 import ie.wombat.ha.nic.APIFrameListener;
 
 import java.io.IOException;
@@ -42,14 +43,27 @@ public class XBeeReadThread extends Thread implements XBeeConstants {
 	}
 	
 	public void run() {
+		try {
+			runLoop();
+		} catch (Error e) {
+			// Notify network monitor
+			NetworkMonitor.notifyThreadDeath(this);
+		}
+		
+		// Experimental: signal to listeners that NIC read thread is now dead
+		// by sending a 0 byte packet.
+		for (APIFrameListener l : listeners) {
+			l.handleAPIFrame(packet, 0);
+		}
+	}
+	
+	private void runLoop () {
 		int packetLen, packetType;
+
 		while (true) {
 			try {
 				
-				
-				//log.debug ("reading XBee API packet from " + xbeeIn);
 				packetLen = XBeeUtil.readAPIFrameFromStream(xbeeIn, packet);
-				//log.debug ("received XBee API packet from " + xbeeIn);
 				
 				log.debug("RX: " + ByteFormatUtils.byteArrayToString(packet,0,packetLen));
 				
@@ -82,6 +96,7 @@ public class XBeeReadThread extends Thread implements XBeeConstants {
 			}
 		}
 	}
+	
 	public synchronized void addListener (APIFrameListener o) {
 		if (!listeners.contains(o)) {
 			listeners.add(o);
