@@ -1,36 +1,24 @@
 package ie.wombat.ha;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
 import ie.wombat.ha.app.AppBase;
 import ie.wombat.ha.app.AppFactory;
-import ie.wombat.ha.devices.DeviceDriver;
-import ie.wombat.ha.devices.DeviceFactory;
-import ie.wombat.ha.nic.xbee.RepeaterServerThread;
-import ie.wombat.ha.nic.xbee.TCPRelay;
+
 import ie.wombat.ha.server.Application;
-import ie.wombat.ha.server.Device;
 import ie.wombat.ha.server.Network;
-import ie.wombat.ha.ui.server.AddressServiceImpl;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.jfree.util.Log;
 
 /**
  * Initialize application. Invoked by the container when the Context (app)
@@ -85,6 +73,11 @@ public class HAStarter implements ServletContextListener {
 		em.getTransaction().begin();
 		List<Network> networks = em.createQuery("from Network order by id").getResultList();
 		for (Network network : networks) {
+			
+if ( network.getId() != 4L && network.getId() != 1L ) {
+	System.err.println ("Skipping Network#" + network.getId());
+	continue;
+}
 			log.info("Starting Network#" + network.getId());
 			HANetwork hanetwork;
 			try {
@@ -107,10 +100,11 @@ public class HAStarter implements ServletContextListener {
 			
 			// Get App configurations from database and create App objects
 			// and add to HANetwork object.
-			log.debug ("Creating apps for Network#" + network.getId() );
+			log.info ("Creating apps for Network#" + network.getId() );
+			log.info ("found " + network.getApplications().size() + " apps");
 			for (Application appRecord : network.getApplications()) {
 				// Create app instance
-				log.debug ("Creating app " + appRecord.getClassName());
+				log.info ("Creating app " + appRecord.getClassName());
 				try {
 					AppBase app = AppFactory.getInstance().createApp(hanetwork, appRecord);
 					hanetwork.addApplication(app);
