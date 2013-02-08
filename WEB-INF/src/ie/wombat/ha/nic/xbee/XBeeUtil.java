@@ -209,8 +209,15 @@ public class XBeeUtil implements XBeeConstants {
 		
 		i = 0;
 		while ( (b = xbeeIn.read()) != START_OF_FRAME ) {
-			log.trace("Expecting START_OF_FRAME, skipping " + ByteFormatUtils.formatHexByte(b));
+			log.trace("Expecting START_OF_FRAME, skipping " + ByteFormatUtils.formatHexByte(b) + " (" + b + ")");
+			
+			// -1 indicates an error condition: throw IOException
+			if (b == -1) {
+				throw new IOException ("Error reading from stream");
+			}
+			
 			try {
+				// Briefly sleep to avoid excessive CPU utilization
 				Thread.sleep(200);
 			} catch (InterruptedException e) {
 			}
