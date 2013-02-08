@@ -129,7 +129,7 @@ public class HANetwork {
 				if ("ie.wombat.ha.nic.zstack.ZStackDriver".equals(nicHardware)) {
 					uartAdapter = new ZStackStreamAdapter(sin, sout);
 				} else if ("ie.wombat.ha.nic.xbee.XBeeDriver".equals(nicHardware)) {
-					uartAdapter = new XBeeStreamAdapter(nic,sin, sout);
+					uartAdapter = new XBeeStreamAdapter((XBeeDriver)nic,sin, sout);
 				}
 			} else if ("sio".equals(nicIOAdapter)) {
 				// SIO (UART) adapter expects additional deviceName, speed parameters
@@ -156,7 +156,7 @@ public class HANetwork {
 							sioPort.getOutputStream());
 					
 				} else if ("ie.wombat.ha.nic.xbee.XBeeDriver".equals(nicHardware)) {
-					uartAdapter = new XBeeStreamAdapter(nic,sioPort.getInputStream(),
+					uartAdapter = new XBeeStreamAdapter((XBeeDriver)nic,sioPort.getInputStream(),
 						sioPort.getOutputStream());
 				}
 			}

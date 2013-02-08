@@ -100,6 +100,7 @@ if ( network.getId() != 4L /* && network.getId() != 1L */ ) {
 			}
 			
 			// Register network with NetworkMonitor
+			log.info("Register Network#" + network.getId() + " with network monitor");
 			monitor.addNetwork(hanetwork);
 			
 			//

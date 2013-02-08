@@ -16,6 +16,12 @@ public class NetworkMonitor extends Thread implements NICErrorListener {
 	
 	public List<HANetwork> networks = Collections.synchronizedList(new ArrayList<HANetwork>());
 			
+	
+	public NetworkMonitor () {
+		// Set thread name
+		setName ("NetworkMonitor");
+	}
+	
 	public synchronized void addNetwork (HANetwork network) {
 		networks.add(network);
 		
