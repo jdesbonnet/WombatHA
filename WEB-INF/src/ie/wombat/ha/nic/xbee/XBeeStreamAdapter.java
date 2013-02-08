@@ -1,6 +1,7 @@
 package ie.wombat.ha.nic.xbee;
 
 import ie.wombat.ha.DebugUtils;
+import ie.wombat.ha.ZigBeeNIC;
 import ie.wombat.ha.nic.APIFrameListener;
 import ie.wombat.ha.nic.UARTAdapter;
 
@@ -24,6 +25,7 @@ public class XBeeStreamAdapter implements UARTAdapter, APIFrameListener {
 	
 	private static Logger log = Logger.getLogger(XBeeStreamAdapter.class);
 	
+	private ZigBeeNIC nic;
 	private InputStream in;
 	private OutputStream out;
 	
@@ -34,11 +36,12 @@ public class XBeeStreamAdapter implements UARTAdapter, APIFrameListener {
 	
 	private APIFrameListener nicListener;
 	
-	public XBeeStreamAdapter (InputStream in, OutputStream out) {
+	public XBeeStreamAdapter (ZigBeeNIC nic, InputStream in, OutputStream out) {
+		this.nic = nic;
 		this.in = in;
 		this.out = out;
 		
-		readThread = new XBeeReadThread(in);
+		readThread = new XBeeReadThread(nic,in);
 		readThread.setName("XBeeRead");
 		
 		// We only require this thread to exist while the driver is in existence

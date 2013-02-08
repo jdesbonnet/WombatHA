@@ -95,7 +95,11 @@ public class XBeeDriver implements ZigBeeNIC, APIFrameListener, XBeeConstants {
 	 * Create XBeeDriver. This is to be called from a factory object. 
 	 * @param uartAdapter Object which sends and receives API packets from the XBee.
 	 */
-	public XBeeDriver (UARTAdapter uartAdapter) {
+	public XBeeDriver () {
+	
+	}
+	
+	public void setUARTAdapter (UARTAdapter uartAdapter) {
 		this.uartAdapter = uartAdapter;
 		uartAdapter.setRxAPIFrameListener(this);
 		
@@ -111,7 +115,6 @@ public class XBeeDriver implements ZigBeeNIC, APIFrameListener, XBeeConstants {
 			log.error(e.toString());
 		}
 	}
-	
 	/**
 	 * Send an AT command to the local XBee (NIC).
 	 * 

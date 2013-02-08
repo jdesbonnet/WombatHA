@@ -43,7 +43,9 @@ public class ZStackDriverTest {
 		}
 		//return new XBeeDriver(sioPort.getInputStream(), sioPort.getOutputStream());
 		ZStackStreamAdapter io = new ZStackStreamAdapter(sioPort.getInputStream(),  sioPort.getOutputStream());
-		ZStackDriver nic = new ZStackDriver(io);
+		ZStackDriver nic = new ZStackDriver();
+		nic.setUARTAdapter(io);
+		
 		
 		Address16 addr16 = new Address16("F298");
 		identify(nic, addr16);

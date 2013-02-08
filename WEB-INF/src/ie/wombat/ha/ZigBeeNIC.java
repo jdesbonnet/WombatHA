@@ -22,6 +22,8 @@ import ie.wombat.zigbee.address.Address64;
  *
  */
 public interface ZigBeeNIC {
+	
+	public void setUARTAdapter (UARTAdapter uart) ;
 
 	/**
 	 * Send ZigBee command to the device with the 64bit IEEE address specified. If the

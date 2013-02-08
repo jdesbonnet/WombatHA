@@ -2,6 +2,7 @@ package ie.wombat.ha.nic.xbee;
 
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
+import ie.wombat.ha.ZigBeeNIC;
 import ie.wombat.ha.nic.ServletAdapter;
 import ie.wombat.ha.sio.SIOUtil;
 
@@ -16,23 +17,23 @@ public class XBeeDriverFactory {
 	
 	private static Logger log = Logger.getLogger(XBeeDriverFactory.class);
 
-	public static XBeeDriver getDriverFromArgs (String[] arg) throws IOException {
+	public static void setUARTFromArgs (ZigBeeNIC nic, String[] arg) throws IOException {
 		if (arg[0].startsWith("/")) {
-			return XBeeDriverFactory.getSIOPortDriver(arg[0], 9600);
+			XBeeDriverFactory.setSIOPort(nic,arg[0], 9600);
 		} else {
-			return XBeeDriverFactory.getTCPPortDriver(arg[0], 4000);
+			XBeeDriverFactory.setTCPPort(nic,arg[0], 4000);
 		}
 	}
-	public static XBeeDriver getTCPPortDriver (String host, int port) throws IOException {
+	public static void setTCPPort (ZigBeeNIC nic, String host, int port) throws IOException {
 		log.debug("returning TCP port driver host=" + host + " port=" + port);
 		Socket sock = new Socket(host, port);
 		InputStream sin = sock.getInputStream();
 		OutputStream sout = sock.getOutputStream();
-		XBeeStreamAdapter adapter = new XBeeStreamAdapter(sin, sout);
-		return new XBeeDriver(adapter);
+		XBeeStreamAdapter adapter = new XBeeStreamAdapter(nic, sin, sout);
+		nic.setUARTAdapter(adapter);
 	}
 	
-	public static XBeeDriver getSIOPortDriver (String sioDeviceName, int speed) throws IOException {
+	public static void setSIOPort (ZigBeeNIC nic, String sioDeviceName, int speed) throws IOException {
 		log.debug("returning Serial IO port driver");
 		SerialPort sioPort;
 		try {
@@ -45,14 +46,13 @@ public class XBeeDriverFactory {
 			throw new IOException ("Error opening port " + sioDeviceName);
 		}
 		//return new XBeeDriver(sioPort.getInputStream(), sioPort.getOutputStream());
-		XBeeStreamAdapter io = new XBeeStreamAdapter(sioPort.getInputStream(),  sioPort.getOutputStream());
-		return new XBeeDriver(io);
+		XBeeStreamAdapter io = new XBeeStreamAdapter(nic, sioPort.getInputStream(),  sioPort.getOutputStream());
+		nic.setUARTAdapter(io);
 	}
 	
-	public static XBeeDriver getHTTPDriver () throws IOException {
+	public static void setHTTP (ZigBeeNIC nic) throws IOException {
 		log.debug("returning HTTP driver");
-		ServletAdapter adapter = new ServletAdapter();
-		return new XBeeDriver(adapter);
+		nic.setUARTAdapter(new ServletAdapter());
 	}
 	
 }

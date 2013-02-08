@@ -104,7 +104,10 @@ public class ZStackDriver implements ZigBeeNIC, APIFrameListener {
 	 * Create driver. This is to be called from a factory object. 
 	 * @param uartAdapter Object which sends and receives API packets from the XBee.
 	 */
-	public ZStackDriver (UARTAdapter uartAdapter) {
+	public ZStackDriver () {
+	}
+	
+	public void setUARTAdapter (UARTAdapter uartAdapter) {
 		this.uartAdapter = uartAdapter;
 		uartAdapter.setRxAPIFrameListener(this);
 		

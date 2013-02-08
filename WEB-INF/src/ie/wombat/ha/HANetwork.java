@@ -88,19 +88,6 @@ public class HANetwork {
 		log.info("Creating HANetwork for networkId=" + networkId);
 		this.networkId = networkId;
 		
-		// Load configuration file
-		/*
-		File configFile = new File ("/var/tmp/ha.properties");
-		Properties properties = new Properties();
-		try {
-			properties.load(new FileInputStream(configFile));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		*/
-		
 		// Parse driver parameters (colon separated)
 		String[] p = networkRecord.getNicDriver().split(":");
 		String nicHardware = p[0];
@@ -110,7 +97,20 @@ public class HANetwork {
 		}
 		
 		log.info ("nicHardware=" + nicHardware + " nicIOAdapter=" + nicIOAdapter);
-
+		
+		if ("ie.wombat.ha.nic.zstack.ZStackDriver".equals(nicHardware)) {
+			nic = new ZStackDriver();
+		} else if ("ie.wombat.ha.nic.xbee.XBeeDriver".equals(nicHardware)) {
+			nic = new XBeeDriver();
+		} else {
+			// TODO: wrong exception
+			log.error ("Unrecognized NIC type " + nicHardware);
+			//throw new IOException ("Unrecognized NIC type " + nicHardware);
+			return;
+		}
+		
+		
+		
 		try {
 			
 			
@@ -129,7 +129,7 @@ public class HANetwork {
 				if ("ie.wombat.ha.nic.zstack.ZStackDriver".equals(nicHardware)) {
 					uartAdapter = new ZStackStreamAdapter(sin, sout);
 				} else if ("ie.wombat.ha.nic.xbee.XBeeDriver".equals(nicHardware)) {
-					uartAdapter = new XBeeStreamAdapter(sin, sout);
+					uartAdapter = new XBeeStreamAdapter(nic,sin, sout);
 				}
 			} else if ("sio".equals(nicIOAdapter)) {
 				// SIO (UART) adapter expects additional deviceName, speed parameters
@@ -154,20 +154,14 @@ public class HANetwork {
 				if ("ie.wombat.ha.nic.zstack.ZStackDriver".equals(nicHardware)) {
 					uartAdapter = new ZStackStreamAdapter(sioPort.getInputStream(),
 							sioPort.getOutputStream());
+					
 				} else if ("ie.wombat.ha.nic.xbee.XBeeDriver".equals(nicHardware)) {
-					uartAdapter = new XBeeStreamAdapter(sioPort.getInputStream(),
+					uartAdapter = new XBeeStreamAdapter(nic,sioPort.getInputStream(),
 						sioPort.getOutputStream());
 				}
 			}
 
-			if ("ie.wombat.ha.nic.zstack.ZStackDriver".equals(nicHardware)) {
-				nic = new ZStackDriver(uartAdapter);
-			} else if ("ie.wombat.ha.nic.xbee.XBeeDriver".equals(nicHardware)) {
-				nic = new XBeeDriver(uartAdapter);
-			} else {
-				// TODO: wrong exception
-				throw new IOException ("Unrecognized NIC type " + nicHardware);
-			}
+			nic.setUARTAdapter(uartAdapter);
 			
 			log.info("nic=" + nic);
 			log.info("ioAdapter=" + uartAdapter);

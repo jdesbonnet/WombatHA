@@ -42,17 +42,17 @@ public class HTTPRelay implements APIFrameListener {
 		// Configure log4j logging
 		BasicConfigurator.configure();
 		
-		XBeeDriver driver;
+		XBeeDriver nic = new XBeeDriver();
 		
 		if (arg[0].startsWith("/")) {
 			log.info ("Opening connection to XBee on local serial port " + arg[0] + " speed " + arg[1]);
-			driver = XBeeDriverFactory.getSIOPortDriver(arg[0], Integer.parseInt(arg[1]));
+			XBeeDriverFactory.setSIOPort(nic,arg[0], Integer.parseInt(arg[1]));
 		} else {
 			log.info ("Opening connection to XBee on TCP socket on host " + arg[0] + " port " + arg[1]);
-			driver = XBeeDriverFactory.getTCPPortDriver(arg[0], Integer.parseInt(arg[1]));
+			XBeeDriverFactory.setTCPPort(nic,arg[0], Integer.parseInt(arg[1]));
 		}
 		
-		HTTPRelay me = new HTTPRelay(driver,arg[2]);
+		HTTPRelay me = new HTTPRelay(nic,arg[2]);
 		me.run();
 		
 		log.info("Done.");

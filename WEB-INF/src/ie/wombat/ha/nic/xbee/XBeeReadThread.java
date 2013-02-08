@@ -4,6 +4,7 @@ package ie.wombat.ha.nic.xbee;
 import ie.wombat.ha.ByteFormatUtils;
 import ie.wombat.ha.Listener;
 import ie.wombat.ha.NetworkMonitor;
+import ie.wombat.ha.ZigBeeNIC;
 import ie.wombat.ha.nic.APIFrameListener;
 import ie.wombat.ha.nic.NICErrorListener;
 
@@ -29,6 +30,7 @@ public class XBeeReadThread extends Thread implements XBeeConstants {
 
 	private static Logger log = Logger.getLogger(XBeeReadThread.class);
 
+	private ZigBeeNIC nic;
 	private InputStream xbeeIn;
 	private byte[] packet = new byte[256];
 	private List<APIFrameListener> listeners = new ArrayList<APIFrameListener>();
@@ -40,23 +42,24 @@ public class XBeeReadThread extends Thread implements XBeeConstants {
 	 * for XBee API packets.
 	 * 
 	 */
-	public XBeeReadThread (InputStream in) {
+	public XBeeReadThread (ZigBeeNIC nic, InputStream in) {
 		super();
+		this.nic = nic;
 		this.xbeeIn = in;
 	}
 	
 	public void run() {
+		
 		try {
 			runLoop();
 		} catch (Throwable e) {
-			// Notify network monitor
-			NetworkMonitor.notifyThreadDeath(this);
+			e.printStackTrace();
 		}
 		
 		// Experimental: signal to listeners that NIC read thread is now dead
 		// by sending a 0 byte packet.
 		for (NICErrorListener l : errorListeners) {
-			//l.handleNICError(nic, 500);
+			l.handleNICError(nic, 500);
 		}
 	}
 	
