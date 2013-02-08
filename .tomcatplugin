@@ -5,7 +5,7 @@
     <reloadable>true</reloadable>
     <redirectLogger>false</redirectLogger>
     <updateXml>true</updateXml>
-    <warLocation>/var/tmp/WombatHA.war</warLocation>
+    <warLocation></warLocation>
     <extraInfo></extraInfo>
     <webPath>/WombatHA</webPath>
 </tomcatProjectProperties>
