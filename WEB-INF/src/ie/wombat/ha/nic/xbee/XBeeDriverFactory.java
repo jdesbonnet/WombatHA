@@ -17,14 +17,14 @@ public class XBeeDriverFactory {
 	
 	private static Logger log = Logger.getLogger(XBeeDriverFactory.class);
 
-	public static void setUARTFromArgs (ZigBeeNIC nic, String[] arg) throws IOException {
+	public static void setUARTFromArgs (XBeeDriver nic, String[] arg) throws IOException {
 		if (arg[0].startsWith("/")) {
 			XBeeDriverFactory.setSIOPort(nic,arg[0], 9600);
 		} else {
 			XBeeDriverFactory.setTCPPort(nic,arg[0], 4000);
 		}
 	}
-	public static void setTCPPort (ZigBeeNIC nic, String host, int port) throws IOException {
+	public static void setTCPPort (XBeeDriver nic, String host, int port) throws IOException {
 		log.debug("returning TCP port driver host=" + host + " port=" + port);
 		Socket sock = new Socket(host, port);
 		InputStream sin = sock.getInputStream();
@@ -33,7 +33,7 @@ public class XBeeDriverFactory {
 		nic.setUARTAdapter(adapter);
 	}
 	
-	public static void setSIOPort (ZigBeeNIC nic, String sioDeviceName, int speed) throws IOException {
+	public static void setSIOPort (XBeeDriver nic, String sioDeviceName, int speed) throws IOException {
 		log.debug("returning Serial IO port driver");
 		SerialPort sioPort;
 		try {

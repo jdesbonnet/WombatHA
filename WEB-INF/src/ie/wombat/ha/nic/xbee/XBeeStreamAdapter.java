@@ -25,7 +25,7 @@ public class XBeeStreamAdapter implements UARTAdapter, APIFrameListener {
 	
 	private static Logger log = Logger.getLogger(XBeeStreamAdapter.class);
 	
-	private ZigBeeNIC nic;
+	private XBeeDriver nic;
 	private InputStream in;
 	private OutputStream out;
 	
@@ -36,7 +36,7 @@ public class XBeeStreamAdapter implements UARTAdapter, APIFrameListener {
 	
 	private APIFrameListener nicListener;
 	
-	public XBeeStreamAdapter (ZigBeeNIC nic, InputStream in, OutputStream out) {
+	public XBeeStreamAdapter (XBeeDriver nic, InputStream in, OutputStream out) {
 		this.nic = nic;
 		this.in = in;
 		this.out = out;

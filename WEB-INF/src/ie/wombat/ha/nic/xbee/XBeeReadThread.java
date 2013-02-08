@@ -30,7 +30,7 @@ public class XBeeReadThread extends Thread implements XBeeConstants {
 
 	private static Logger log = Logger.getLogger(XBeeReadThread.class);
 
-	private ZigBeeNIC nic;
+	private XBeeDriver nic;
 	private InputStream xbeeIn;
 	private byte[] packet = new byte[256];
 	private List<APIFrameListener> listeners = new ArrayList<APIFrameListener>();
@@ -42,7 +42,7 @@ public class XBeeReadThread extends Thread implements XBeeConstants {
 	 * for XBee API packets.
 	 * 
 	 */
-	public XBeeReadThread (ZigBeeNIC nic, InputStream in) {
+	public XBeeReadThread (XBeeDriver nic, InputStream in) {
 		super();
 		this.nic = nic;
 		this.xbeeIn = in;
@@ -56,11 +56,8 @@ public class XBeeReadThread extends Thread implements XBeeConstants {
 			e.printStackTrace();
 		}
 		
-		// Experimental: signal to listeners that NIC read thread is now dead
-		// by sending a 0 byte packet.
-		for (NICErrorListener l : errorListeners) {
-			l.handleNICError(nic, 500);
-		}
+		nic.receiveNICError();
+		
 	}
 	
 	private void runLoop () throws IOException {

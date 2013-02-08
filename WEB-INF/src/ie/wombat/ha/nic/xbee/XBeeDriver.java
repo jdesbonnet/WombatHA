@@ -780,15 +780,35 @@ public class XBeeDriver implements ZigBeeNIC, APIFrameListener, XBeeConstants {
 		return this.lastRxTime;
 	}
 
+	
+	/**
+	 * Will be called by {@link XBeeReadThread} if an error condition is detected.
+	 */
+	void receiveNICError () {
+		// Experimental: signal to listeners that NIC read thread is now dead
+		// by sending a 0 byte packet.
+		log.warn("Sending NIC error notification to " + errorListeners.size() + " listeners.");
+		for (NICErrorListener l : errorListeners) {
+			log.warn ("  sending notification to " + l);
+			l.handleNICError(this, 500);
+		}
+	}
+	
 	@Override
 	public void addListener(Listener listener) {
+		
 		if (listener instanceof ZigBeePacketListener) {
+			log.info("Adding " + listener + " to zigbeePacketListeners");
 			zigbeePacketListeners.add((ZigBeePacketListener)listener);
 		}
+		
 		if (listener instanceof APIFrameListener) {
+			log.info("Adding " + listener + " to apiListeners");
 			apiListeners.add((APIFrameListener)listener);
 		}
+		
 		if (listener instanceof NICErrorListener) {
+			log.info("Adding " + listener + " to errorListeners");
 			errorListeners.add((NICErrorListener)listener);
 		}
 		
