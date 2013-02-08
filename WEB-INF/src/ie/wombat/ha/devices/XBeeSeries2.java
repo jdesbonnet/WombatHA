@@ -219,11 +219,15 @@ public class XBeeSeries2 extends DeviceDriver  {
 				System.err.println ("execATQuery(): Got packet to consider: " 
 				+ ByteFormatUtils.byteArrayToString(packet.getPayload()));
 
-				
+				// Can't rely on Address16
+				/*
 				if (! packet.getSourceAddress16().equals(xbeeAddr16)) {
 					System.err.println ("rejecting packet because addr16 = " + packet.getSourceAddress16());
 					return false;
 				}
+				*/
+				
+				
 				if (packet.getSourceEndPoint() != 230) {
 					System.err.println ("rejecting packet because ep != 230, received " + packet.getSourceEndPoint());
 					return false;
