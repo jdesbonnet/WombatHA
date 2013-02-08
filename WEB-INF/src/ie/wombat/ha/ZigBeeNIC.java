@@ -101,6 +101,11 @@ public interface ZigBeeNIC {
 	// 
 	//
 	
+	// New generic add/remove listener. Rathern than add/remove methods specific to
+	// each type of listener. Keeps the API simpler.
+	void addListener (Listener listener);
+	void removeListener (Listener listener);
+	
 	//public void getAddr16 (Address64 addr64);
 	// Methods related to the lower level NIC API. Application code should avoid
 	// using these, but are included for debugging, network repeaters etc.

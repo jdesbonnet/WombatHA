@@ -8,6 +8,7 @@ import ie.wombat.ha.ZigBeePacketFilter;
 import ie.wombat.ha.ZigBeePacketListener;
 import ie.wombat.ha.ZigBeeNIC;
 import ie.wombat.ha.nic.APIFrameListener;
+import ie.wombat.ha.nic.NICErrorListener;
 import ie.wombat.ha.nic.UARTAdapter;
 import ie.wombat.ha.nic.xbee.XBeeUtil;
 import ie.wombat.zigbee.Ack;
@@ -60,6 +61,11 @@ public class ZStackDriver implements ZigBeeNIC, APIFrameListener {
 	 * (currently not implemented for ZStack driver)
 	 */
 	private ArrayList<AcknowledgementListener> apiAckListeners = new ArrayList<AcknowledgementListener>();
+	
+	/**
+	 * Objects that have registered to receive notification of NIC errors.
+	 */
+	private ArrayList<NICErrorListener> errorListeners = new ArrayList<NICErrorListener>();
 	
 	/**
 	 * Filter which are applied to ZigBee packets before notifying {@link ZigBeePacketListener}
@@ -915,6 +921,38 @@ public class ZStackDriver implements ZigBeeNIC, APIFrameListener {
 			cs ^= bytes[i];
 		}
 		return cs & 0xff;
+	}
+	
+	@Override
+	public void addListener(Listener listener) {
+		if (listener instanceof ZigBeePacketListener) {
+			zigbeePacketListeners.add((ZigBeePacketListener)listener);
+			return;
+		}
+		if (listener instanceof APIFrameListener) {
+			apiListeners.add((APIFrameListener)listener);
+			return;
+		}
+		if (listener instanceof NICErrorListener) {
+			errorListeners.add((NICErrorListener)listener);
+			return;
+		}
+		
+	}
+
+	@Override
+	public void removeListener(Listener listener) {
+		if (listener instanceof ZigBeePacketListener) {
+			zigbeePacketListeners.remove((ZigBeePacketListener)listener);
+			return;
+		}
+		if (listener instanceof APIFrameListener) {
+			apiListeners.remove((APIFrameListener)listener);
+			return;
+		}
+		if (listener instanceof NICErrorListener) {
+			errorListeners.remove((NICErrorListener)listener);
+		}
 	}
 	
 }

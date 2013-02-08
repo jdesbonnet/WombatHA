@@ -9,6 +9,7 @@ import ie.wombat.ha.ZigBeePacketFilter;
 import ie.wombat.ha.ZigBeePacketListener;
 import ie.wombat.ha.ZigBeeNIC;
 import ie.wombat.ha.nic.APIFrameListener;
+import ie.wombat.ha.nic.NICErrorListener;
 import ie.wombat.ha.nic.UARTAdapter;
 import ie.wombat.zigbee.Ack;
 import ie.wombat.zigbee.AddressNotFoundException;
@@ -50,6 +51,11 @@ public class XBeeDriver implements ZigBeeNIC, APIFrameListener, XBeeConstants {
 	 * (API packet type 0x8B) 
 	 */
 	private ArrayList<AcknowledgementListener> xbeeAckListeners = new ArrayList<AcknowledgementListener>();
+	
+	/**
+	 * Objects that have registered to receive notification of NIC errors.
+	 */
+	private ArrayList<NICErrorListener> errorListeners = new ArrayList<NICErrorListener>();
 	
 	/**
 	 * Filter which are applied to zigbee packets before notifying {@link ZigBeePacketListener}
@@ -769,5 +775,37 @@ public class XBeeDriver implements ZigBeeNIC, APIFrameListener, XBeeConstants {
 	
 	public long getLastRxTime () {
 		return this.lastRxTime;
+	}
+
+	@Override
+	public void addListener(Listener listener) {
+		if (listener instanceof ZigBeePacketListener) {
+			zigbeePacketListeners.add((ZigBeePacketListener)listener);
+			return;
+		}
+		if (listener instanceof APIFrameListener) {
+			apiListeners.add((APIFrameListener)listener);
+			return;
+		}
+		if (listener instanceof NICErrorListener) {
+			errorListeners.add((NICErrorListener)listener);
+			return;
+		}
+		
+	}
+
+	@Override
+	public void removeListener(Listener listener) {
+		if (listener instanceof ZigBeePacketListener) {
+			zigbeePacketListeners.remove((ZigBeePacketListener)listener);
+			return;
+		}
+		if (listener instanceof APIFrameListener) {
+			apiListeners.remove((APIFrameListener)listener);
+			return;
+		}
+		if (listener instanceof NICErrorListener) {
+			errorListeners.remove((NICErrorListener)listener);
+		}
 	}
 }
