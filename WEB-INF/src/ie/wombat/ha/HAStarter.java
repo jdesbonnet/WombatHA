@@ -36,7 +36,13 @@ public class HAStarter implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent arg0) {
 		BasicConfigurator.configure();
 		
-		System.err.println ("Starting HA Network");		
+		System.err.println ("Starting HA Network");	
+		
+		log.info ("Starting network monitor thread");
+		NetworkMonitor monitor = new NetworkMonitor();
+		monitor.start();
+		
+		
 		
 		// Load configuration file
 		File configFile = new File ("/var/tmp/ha.properties");
@@ -74,7 +80,7 @@ public class HAStarter implements ServletContextListener {
 		List<Network> networks = em.createQuery("from Network order by id").getResultList();
 		for (Network network : networks) {
 			
-if ( network.getId() != 4L && network.getId() != 1L ) {
+if ( network.getId() != 4L /* && network.getId() != 1L */ ) {
 	System.err.println ("Skipping Network#" + network.getId());
 	continue;
 }
@@ -92,7 +98,9 @@ if ( network.getId() != 4L && network.getId() != 1L ) {
 						);
 				continue;
 			}
-			//HANetwork hanetwork = HANetwork.getInstance(network.getId());
+			
+			// Register network with NetworkMonitor
+			monitor.addNetwork(hanetwork);
 			
 			//
 			// Initialize apps
