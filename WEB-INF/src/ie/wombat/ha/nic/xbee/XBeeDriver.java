@@ -784,15 +784,12 @@ public class XBeeDriver implements ZigBeeNIC, APIFrameListener, XBeeConstants {
 	public void addListener(Listener listener) {
 		if (listener instanceof ZigBeePacketListener) {
 			zigbeePacketListeners.add((ZigBeePacketListener)listener);
-			return;
 		}
 		if (listener instanceof APIFrameListener) {
 			apiListeners.add((APIFrameListener)listener);
-			return;
 		}
 		if (listener instanceof NICErrorListener) {
 			errorListeners.add((NICErrorListener)listener);
-			return;
 		}
 		
 	}
