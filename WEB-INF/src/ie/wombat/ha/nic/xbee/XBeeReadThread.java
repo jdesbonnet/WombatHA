@@ -2,8 +2,10 @@ package ie.wombat.ha.nic.xbee;
 
 
 import ie.wombat.ha.ByteFormatUtils;
+import ie.wombat.ha.Listener;
 import ie.wombat.ha.NetworkMonitor;
 import ie.wombat.ha.nic.APIFrameListener;
+import ie.wombat.ha.nic.NICErrorListener;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +32,8 @@ public class XBeeReadThread extends Thread implements XBeeConstants {
 	private InputStream xbeeIn;
 	private byte[] packet = new byte[256];
 	private List<APIFrameListener> listeners = new ArrayList<APIFrameListener>();
-	
+	private List<NICErrorListener> errorListeners = new ArrayList<NICErrorListener>();
+
 	/**
 	 * 
 	 * @param in The input stream corresponding to the XBee UART out for which to listen 
@@ -97,13 +100,14 @@ public class XBeeReadThread extends Thread implements XBeeConstants {
 		}
 	}
 	
-	public synchronized void addListener (APIFrameListener o) {
-		if (!listeners.contains(o)) {
-			listeners.add(o);
+	public synchronized void addListener (Listener o) {
+		if (o instanceof APIFrameListener && !listeners.contains(o)) {
+			listeners.add((APIFrameListener)o);
 		}
 	}
-	public synchronized void removeListener (APIFrameListener o) {
+	public synchronized void removeListener (Listener o) {
 		listeners.remove(o);
+		errorListeners.remove(o);
 	}
 
 }
