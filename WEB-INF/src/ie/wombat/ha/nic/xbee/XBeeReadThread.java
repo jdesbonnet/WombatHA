@@ -48,24 +48,23 @@ public class XBeeReadThread extends Thread implements XBeeConstants {
 	public void run() {
 		try {
 			runLoop();
-		} catch (Error e) {
+		} catch (Throwable e) {
 			// Notify network monitor
 			NetworkMonitor.notifyThreadDeath(this);
 		}
 		
 		// Experimental: signal to listeners that NIC read thread is now dead
 		// by sending a 0 byte packet.
-		for (APIFrameListener l : listeners) {
-			l.handleAPIFrame(packet, 0);
+		for (NICErrorListener l : errorListeners) {
+			//l.handleNICError(nic, 500);
 		}
 	}
 	
-	private void runLoop () {
+	private void runLoop () throws IOException {
 		int packetLen, packetType;
 
 		while (true) {
-			try {
-				
+			
 				packetLen = XBeeUtil.readAPIFrameFromStream(xbeeIn, packet);
 				
 				log.debug("RX: " + ByteFormatUtils.byteArrayToString(packet,0,packetLen));
@@ -88,15 +87,7 @@ public class XBeeReadThread extends Thread implements XBeeConstants {
 				for (APIFrameListener l : listeners) {
 					l.handleAPIFrame(packet, packetLen);
 				}
-			} catch (IOException e) {
-				log.error(e.toString());
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
+		
 		}
 	}
 	
