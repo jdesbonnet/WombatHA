@@ -25,7 +25,10 @@ public class AppFactory {
 	}
 	
 	public AppBase createApp (HANetwork network, Application appRecord) {
-		return createApp (network, appRecord.getClassName(), appRecord.getConfiguration());
+		log.debug("Instantiate App#" + appRecord.getId());
+		AppBase app = createApp (network, appRecord.getClassName(), appRecord.getConfiguration());
+		app.setId(appRecord.getId());
+		return app;
 	}
 	
 	/**
@@ -37,7 +40,7 @@ public class AppFactory {
 	 */
 	public AppBase createApp (HANetwork network, String appClassName, String appConfiguration) {
 		
-		log.debug("Attempting to instantiate object for app " + appClassName );
+		log.debug("Instantiate app " + appClassName + " config=" + appConfiguration );
 		
 		// Use reflection to get device constructor as object
 		Class[] constructorParamTypes = {HANetwork.class, String.class};
