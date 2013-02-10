@@ -24,6 +24,10 @@ public class AppFactory {
 		return instance;
 	}
 	
+	public AppBase createApp (HANetwork network, Application appRecord) {
+		return createApp (network, appRecord.getClassName(), appRecord.getConfiguration());
+	}
+	
 	/**
 	 * Create a App object from the database app registry. 
 	 * 
@@ -31,16 +35,9 @@ public class AppFactory {
 	 * @param appRecord
 	 * @return
 	 */
-	public AppBase createApp (HANetwork network, Application appRecord) {
+	public AppBase createApp (HANetwork network, String appClassName, String appConfiguration) {
 		
-		log.debug("Attempting to instantiate object for app " + appRecord.getClassName());
-		
-		String appClassName = appRecord.getClassName().trim();
-		if (appClassName == null) {
-			return null;
-		}
-		
-		log.debug ("App class name " + appClassName);
+		log.debug("Attempting to instantiate object for app " + appClassName );
 		
 		// Use reflection to get device constructor as object
 		Class[] constructorParamTypes = {HANetwork.class, String.class};
@@ -70,9 +67,8 @@ public class AppFactory {
 			//DeviceDriver deviceDriver = (DeviceDriver)constructor.newInstance(args);
 			AppBase app = (AppBase)constructor.newInstance(
 					network,
-					appRecord.getConfiguration()
+					appConfiguration
 					);
-			app.setId(appRecord.getId());
 			log.info("App object successfully instantiated: " + app);
 			return app;
 			
