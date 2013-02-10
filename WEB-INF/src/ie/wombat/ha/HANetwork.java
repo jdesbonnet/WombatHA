@@ -75,6 +75,8 @@ public class HANetwork {
 	private HashMap<Address16,Address64> addr16ToAddr64Cache = new HashMap<Address16,Address64>();
 	
 	private HashMap<Address64, DeviceDriver> addr64ToDeviceDriverHash = new HashMap<Address64,DeviceDriver>();
+	
+	/** Applications running on this network. */
 	private List<AppBase> applications = new ArrayList<AppBase>();
 	
 	NetworkDiscoveryListener networkDiscoveryListener = null;
@@ -236,6 +238,9 @@ public class HANetwork {
 	public synchronized static AppBase getApplication(Long appId) {
 		for (HANetwork net : instanceHash.values()) {
 			for (AppBase app : net.getApplications()) {
+				if (app.getId() == null) {
+					continue;
+				}
 				if (app.getId().equals(appId)) {
 					return app;
 				}
