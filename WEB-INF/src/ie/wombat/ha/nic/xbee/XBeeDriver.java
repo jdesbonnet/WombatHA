@@ -410,6 +410,8 @@ public class XBeeDriver implements ZigBeeNIC, APIFrameListener, XBeeConstants {
 		
 		log.info("handleAPIFrame(): " + ByteFormatUtils.byteArrayToString(packet, 0, packetLen));
 		
+		lastRxTime = System.currentTimeMillis();
+		
 		// Remove expired listeners
 		removeExpiredListeners(zigbeePacketListeners);
 		removeExpiredListeners(xbeeAckListeners);
