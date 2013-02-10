@@ -202,6 +202,8 @@ public class HeatingApp extends AppBase implements ZigBeePacketListener  {
 		temperature[zone] = t;
 		temperatureTime[zone] = System.currentTimeMillis();
 		
+		logEvent("temperature_zone_"+zone, ""+t);
+
 		if (zoneMode[zone] != ZoneMode.AUTO) {
 			log.debug("Zone " + zone + " is not in AUTO. No actuation required.");
 			return;
