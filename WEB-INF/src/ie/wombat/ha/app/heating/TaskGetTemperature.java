@@ -33,12 +33,12 @@ public class TaskGetTemperature implements Runnable {
 			return;
 		}
 		
-		TemperatureSensor zrc = app.getSensorDevice(zone);
+		TemperatureSensor ts = app.getSensorDevice(zone);
 		
 		try {
-			log.debug(logPrefix + "Requesting ZRC temperature zrc=" + zrc);
-			float t = zrc.getTemperature();
-			log.debug(logPrefix + "ZRC response t=" + t);
+			log.debug(logPrefix + "Requesting temperature device=" + ts);
+			float t = ts.getTemperature();
+			log.debug(logPrefix + "Temperature sensor response t=" + t);
 			app.notifyCurrentTemperature(zone,t);
 		} catch (ZigBeeException e) {
 			e.printStackTrace();
