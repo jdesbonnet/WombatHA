@@ -9,6 +9,7 @@ import java.util.Properties;
 
 import ie.wombat.ha.app.AppBase;
 import ie.wombat.ha.app.AppFactory;
+import ie.wombat.ha.app.devicemonitor.DeviceMonitor;
 
 import ie.wombat.ha.server.Application;
 import ie.wombat.ha.server.Network;
@@ -102,6 +103,13 @@ if ( network.getId() != 4L /* && network.getId() != 1L */ ) {
 			// Register network with NetworkMonitor
 			log.info("Register Network#" + network.getId() + " with network monitor");
 			monitor.addNetwork(hanetwork);
+			
+			// 
+			// Initialize device monitor 
+			//
+			hanetwork.addApplication (
+				AppFactory.getInstance().createApp(hanetwork,"ie.wombat.ha.app.devicemonitor.DeviceMonitor", "")
+			);
 			
 			//
 			// Initialize apps
