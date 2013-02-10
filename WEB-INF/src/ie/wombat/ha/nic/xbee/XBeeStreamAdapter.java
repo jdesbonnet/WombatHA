@@ -59,8 +59,8 @@ public class XBeeStreamAdapter implements UARTAdapter, APIFrameListener {
 	}
 	
 	public void txAPIFrame(byte[] apiPacketData, int packetLen) throws IOException {
-		log.info("sendXBeeAPIPAcket() Sending escaped API packet len=" + packetLen + " on the 'wire' using OutputStream " + out);
-		log.debug ("sendXBeeAPIPAcket(): " + DebugUtils.formatXBeeAPIFrame(apiPacketData, 0, packetLen));
+		log.info("sendXBeeAPIPacket() Sending escaped API packet len=" + packetLen + " on the 'wire' using OutputStream " + out);
+		log.debug ("sendXBeeAPIPacket(): " + DebugUtils.formatXBeeAPIFrame(apiPacketData, 0, packetLen));
 		out.write(apiPacketData,0,packetLen);
 		out.flush();
 	}
