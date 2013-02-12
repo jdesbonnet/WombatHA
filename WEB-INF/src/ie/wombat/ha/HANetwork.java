@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -235,6 +236,9 @@ public class HANetwork {
 	public synchronized static HANetwork getInstance(Long networkId) {
 		return instanceHash.get(networkId);
 	}
+	public synchronized static Collection<HANetwork> getAllNetworks() {
+		return instanceHash.values();
+	}
 	public synchronized static AppBase getApplication(Long appId) {
 		for (HANetwork net : instanceHash.values()) {
 			for (AppBase app : net.getApplications()) {
@@ -291,10 +295,13 @@ public class HANetwork {
 	
 	public synchronized static HANetwork createNetwork (Network networkRecord) {
 		HANetwork network = instanceHash.get(networkRecord.getId());
+		
+		/*
 		if (network != null) {
 			log.warn ("Requested to create Network#" + networkRecord.getId() + " but it has already been created");
 			return network;
 		}
+		*/
 		
 		network = new HANetwork (networkRecord);
 		instanceHash.put(networkRecord.getId(), network);

@@ -85,50 +85,11 @@ if ( network.getId() != 4L /* && network.getId() != 1L */ ) {
 	System.err.println ("Skipping Network#" + network.getId());
 	continue;
 }
-			log.info("Starting Network#" + network.getId());
-			HANetwork hanetwork;
-			try {
-				hanetwork = HANetwork.createNetwork(network);
-			} catch (Error e) {
-				// Catch Error because RXTX lib link error can occur
-				// if library is not installed.
-				log.error("Error initializing Network#:" 
-						+ network.getId()
-						+ ": "
-						+e.toString()
-						);
-				continue;
-			}
+			HANetwork hanetwork = startNetwork (network);
 			
 			// Register network with NetworkMonitor
 			log.info("Register Network#" + network.getId() + " with network monitor");
 			monitor.addNetwork(hanetwork);
-			
-			// 
-			// Initialize device monitor 
-			//
-			hanetwork.addApplication (
-				AppFactory.getInstance().createApp(hanetwork,"ie.wombat.ha.app.devicemonitor.DeviceMonitor", "")
-			);
-			
-			//
-			// Initialize apps
-			//
-			
-			// Get App configurations from database and create App objects
-			// and add to HANetwork object.
-			log.info ("Creating apps for Network#" + network.getId() );
-			log.info ("found " + network.getApplications().size() + " apps");
-			for (Application appRecord : network.getApplications()) {
-				// Create app instance
-				log.info ("Creating app " + appRecord.getClassName());
-				try {
-					AppBase app = AppFactory.getInstance().createApp(hanetwork, appRecord);
-					hanetwork.addApplication(app);
-				} catch (Error e) {
-					log.error ("Error creating app " + appRecord.getClassName() + ": " + e.getMessage());
-				}
-			}
 		}
 		em.getTransaction().commit();
 		em.close();
@@ -136,6 +97,51 @@ if ( network.getId() != 4L /* && network.getId() != 1L */ ) {
 		
 	}
 	
+	public static HANetwork startNetwork (Network network) {
+		log.info("Starting Network#" + network.getId());
+		HANetwork hanetwork;
+		try {
+			hanetwork = HANetwork.createNetwork(network);
+		} catch (Error e) {
+			// Catch Error because RXTX lib link error can occur
+			// if library is not installed.
+			log.error("Error initializing Network#:" 
+					+ network.getId()
+					+ ": "
+					+e.toString()
+					);
+			return null;
+		}
+		
+
+		
+		// 
+		// Initialize device monitor 
+		//
+		hanetwork.addApplication (
+			AppFactory.getInstance().createApp(hanetwork,"ie.wombat.ha.app.devicemonitor.DeviceMonitor", "")
+		);
+		
+		//
+		// Initialize apps
+		//
+		
+		// Get App configurations from database and create App objects
+		// and add to HANetwork object.
+		log.info ("Creating apps for Network#" + network.getId() );
+		log.info ("found " + network.getApplications().size() + " apps");
+		for (Application appRecord : network.getApplications()) {
+			// Create app instance
+			log.info ("Creating app " + appRecord.getClassName());
+			try {
+				AppBase app = AppFactory.getInstance().createApp(hanetwork, appRecord);
+				hanetwork.addApplication(app);
+			} catch (Error e) {
+				log.error ("Error creating app " + appRecord.getClassName() + ": " + e.getMessage());
+			}
+		}
+		return hanetwork;
+	}
 	public void contextDestroyed(ServletContextEvent arg0) {
 		System.err.println ("***BYE!***");
 	}
