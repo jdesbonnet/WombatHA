@@ -11,11 +11,16 @@ import java.io.Writer;
 
 public class DebugUtils {
 
-	public static String formatXBeeAPIFrame (byte[] packet, int start, int len) throws IOException {
+	public static String formatXBeeAPIFrame (byte[] packet, int start, int len) {
 		StringWriter sw = new StringWriter();
-		displayXBeeAPIPacket(sw, packet, start, len);
+		try {
+			displayXBeeAPIPacket(sw, packet, start, len);
+		} catch (IOException e) {
+			return "?error?";
+		}
 		return sw.toString();
 	}
+	
 	public static void displayXBeeAPIPacket (Writer w, byte[] packet, int start, int len) throws IOException {
 		
 		int packetType = (int)packet[start] & 0xff;
