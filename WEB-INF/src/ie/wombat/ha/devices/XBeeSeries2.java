@@ -72,8 +72,7 @@ public class XBeeSeries2 extends DeviceDriver  {
 		// 0x11, 0x44, {0x30|0x31|0x32|0x33}, 0x00, {0x04|0x05}
 		
 		byte[] response = execATQuery(command,param);
-		System.err.println ("response to ATD" + line + ": " 
-				+ ByteFormatUtils.byteArrayToString(response));
+		log.debug ("response to ATD" + line + ": " + ByteFormatUtils.byteArrayToString(response));
 		
 		return -1;
 	}
@@ -198,7 +197,7 @@ public class XBeeSeries2 extends DeviceDriver  {
 					ZigBeeCommand zcmd, byte[] payload) {
 				
 				
-				System.err.println ("Got response to AT query: " + ByteFormatUtils.byteArrayToString(payload));
+				log.debug ("response to AT query: " + ByteFormatUtils.byteArrayToString(payload));
 				if (payload!= null && payload.length >= 4) {
 					int frameId = payload[0] & 0xff;
 					System.err.println ("FrameID=" + frameId);
@@ -216,7 +215,7 @@ public class XBeeSeries2 extends DeviceDriver  {
 			
 			public boolean allow(ZigBeePacket packet) {
 				
-				System.err.println ("execATQuery(): Got packet to consider: " 
+				log.debug ("execATQuery(): received packet to consider: " 
 				+ ByteFormatUtils.byteArrayToString(packet.getPayload()));
 
 				// Can't rely on Address16
@@ -229,26 +228,26 @@ public class XBeeSeries2 extends DeviceDriver  {
 				
 				
 				if (packet.getSourceEndPoint() != 230) {
-					System.err.println ("rejecting packet because ep != 230, received " + packet.getSourceEndPoint());
+					log.trace ("rejecting packet because ep != 230, received " + packet.getSourceEndPoint());
 					return false;
 				}
 				if (packet.getClusterId() != 0xA1) {
-					System.err.println ("rejecting packet because clusterId != 0xA1, received " + packet.getSourceEndPoint());
+					log.trace ("rejecting packet because clusterId != 0xA1, received " + packet.getSourceEndPoint());
 					return false;
 				}
 				if (packet.getPayload().length < 3) {
-					System.err.println ("rejecting packet because too short at " + packet.getPayload().length + " bytes");
+					log.trace ("rejecting packet because too short at " + packet.getPayload().length + " bytes");
 					return false;
 				}
 				if ( (packet.getPayload()[0]&0xff) == frameId) {
-					System.err.println ("FrameIDs match: both " + frameId);
+					log.trace ("FrameIDs match: both " + frameId);
 				} else {
-					System.err.println ("FrameID does not match. Expecting " + frameId 
+					log.trace ("FrameID does not match. Expecting " + frameId 
 							+ " but got " + (packet.getPayload()[0]&0xff));
 					return false;
 				}
 				
-				System.err.println ("looks like good XBee response packet");
+				log.debug ("looks like good XBee response packet");
 				return true;
 			}
 		});
