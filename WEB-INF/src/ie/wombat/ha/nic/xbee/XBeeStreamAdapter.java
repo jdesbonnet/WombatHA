@@ -87,9 +87,11 @@ public class XBeeStreamAdapter implements UARTAdapter, APIFrameListener {
 		// ignore
 	}
 
-	public void handleAPIFrame(byte[] packet, int packetLen) {
+	public void handleAPIFrame(byte[] frame, int packetLen) {
+		log.info("Received API frame from NIC, len=" + packetLen);
+		log.debug("API frame: "  + DebugUtils.formatXBeeAPIFrame(frame, 0, packetLen));
 		try {
-			receiveXBeeAPIPacket(packet, packetLen);
+			receiveXBeeAPIPacket(frame, packetLen);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
