@@ -124,21 +124,24 @@ public class XBeeDriver implements ZigBeeNIC, APIFrameListener, XBeeConstants {
 	 * @throws IOException
 	 */
 	public int sendLocalATCommand (int frameId, String command, byte[] params) throws IOException {
+		
+		log.info("Sending local AT command: " + command + " params=" + ByteFormatUtils.byteArrayToString(params));
+
 		if (params == null) {
 			params = new byte[0];
 		}
-		byte[] packet = new byte[4 + params.length];
-		packet[0] = 0x08; // AT Command
-		packet[1] = (byte)frameId; // frame ID
+		byte[] frame = new byte[4 + params.length];
+		frame[0] = 0x08; // AT Command
+		frame[1] = (byte)frameId; // frame ID
 		
-		packet[2] = (byte)command.charAt(0);
-		packet[3] = (byte)command.charAt(1);
+		frame[2] = (byte)command.charAt(0);
+		frame[3] = (byte)command.charAt(1);
 		
 		for (int i = 0; i < params.length; i++) {
-			packet[i+4] = params[i];
+			frame[i+4] = params[i];
 		}
 		
-		sendAPIFrame(packet,packet.length);
+		sendAPIFrame(frame,frame.length);
 		
 		return frameId;
 	}
