@@ -439,6 +439,15 @@ public class XBeeDriver implements ZigBeeNIC, APIFrameListener, XBeeConstants {
 			log.debug ("Ignoring type 0x11 packet.");
 			break;
 			
+			
+		case 0x88: {
+			// Frame type (0x88), Frame ID, ATCMD0, ATCMD1, CMD_STATUS (0=OK,1=ERROR,2=InvCmd,3=InvParam), CMDDATA
+			log.info ("AT Command Response");
+			log.info ("FrameID=" + packet[1]);
+			log.info ("CMD=" + (char)packet[2] + (char)packet[3]);
+			log.info ("CMDStatus=" + packet[4]);
+		}
+			
 		case 0x8B:
 			Ack ack = new Ack();
 			// packet[0] == 0x8B
@@ -595,7 +604,7 @@ public class XBeeDriver implements ZigBeeNIC, APIFrameListener, XBeeConstants {
 			
 		}
 		default:
-			log.warn ("unrecognized API packet type " + Integer.toHexString(apiPacketType));
+			log.warn ("unrecognized API frame type " + Integer.toHexString(apiPacketType));
 		} // end switch
 			
 	}
