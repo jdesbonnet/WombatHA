@@ -44,7 +44,7 @@ public class ByteFormatUtils {
 		if (bytes == null) {
 			return "(null)";
 		}
-		if (bytes.length==0) {
+		if (bytes.length==0 || len==0) {
 			return "";
 		}
 		StringBuffer buf = new StringBuffer();

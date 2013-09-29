@@ -444,13 +444,14 @@ public class XBeeDriver implements ZigBeeNIC, APIFrameListener, XBeeConstants {
 			
 			
 		case 0x88: {
+			// AT Command Response Frame
 			// Frame type (0x88), Frame ID, ATCMD0, ATCMD1, CMD_STATUS (0=OK,1=ERROR,2=InvCmd,3=InvParam), CMDDATA
 			log.info ("AT Command Response");
 			log.info ("FrameID=" + packet[1]);
 			log.info ("CMD=" + (char)packet[2] + (char)packet[3]);
 			log.info ("CMDStatus=" + packet[4]);
+			log.info ("Data=" + ByteFormatUtils.byteArrayToString(packet, 5, packetLen-5));
 		}
-			
 		case 0x8B:
 			Ack ack = new Ack();
 			// packet[0] == 0x8B
@@ -486,6 +487,8 @@ public class XBeeDriver implements ZigBeeNIC, APIFrameListener, XBeeConstants {
 		break;
 		
 		case 0x91: {
+			//ZigBee Explicit Rx Indicator API Frame
+
 			ZigBeePacket zbpacket = new ZigBeePacket();
 			
 			// XBee API uses MSB first for addresses
@@ -521,6 +524,13 @@ public class XBeeDriver implements ZigBeeNIC, APIFrameListener, XBeeConstants {
 			System.arraycopy(packet, 18, payload, 0, payload.length);
 			zbpacket.setPayload(payload);
 			
+			log.info("SourceAddr16=" + zbpacket.getSourceAddress16());
+			log.info("SourceAddr64=" + zbpacket.getSourceAddress64());
+			log.info("SourceEndPoint=" + zbpacket.getSourceEndPoint());
+			log.info("SourceDstPoint=" + zbpacket.getDestinationEndPoint());
+			log.info("ClusterID=" + zbpacket.getClusterId());
+			log.info("ProfileID=" + zbpacket.getProfileId());
+			log.info("Payload=" + ByteFormatUtils.byteArrayToString(payload));
 			// Do callbacks
 			
 			// Make a copy as these callbacks may want to unregister themselves which
