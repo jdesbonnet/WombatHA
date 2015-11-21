@@ -1,5 +1,7 @@
 #!/bin/bash
+DEVICE=$1
+CHANNEL=$2
 killall stm32w-wireshark
 sleep 1
-wireshark -k -i <( ./stm32w-wireshark /dev/ttyACM0 14 )
+wireshark -k -i <( ./stm32w-wireshark $DEVICE $CHANNEL )
 

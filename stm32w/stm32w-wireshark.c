@@ -499,11 +499,6 @@ int main( int argc, char **argv) {
 			continue;
 		}
 
-		// Write frame (excluding 0x15, 0xFF prefix, checksum and 0x0C)
-		if (output_format == FORMAT_HEX) {
-			display_hex (buf,frame_length);
-			fprintf (stderr,"\n");	
-		}
 
 		// Is this a frame type 0xF0?
 		if (buf[3] != 0xF0) {
@@ -540,23 +535,26 @@ int main( int argc, char **argv) {
 		fflush (stdout);
 		*/
 
-		// Remaining code applies to PCAP format only
-		if (output_format != FORMAT_PCAP) {
-			//continue;
-		}
-
-
 		ncapture++;
 
-		fwrite (&host_ts_sec, sizeof(int), 1, stdout);	// ts_sec: timestamp seconds
-		fwrite (&host_ts_usec, sizeof(int), 1, stdout);	// ts_usec: timestamp microseconds
+		// Write frame (excluding 0x15, 0xFF prefix, checksum and 0x0C)
+		if (output_format == FORMAT_HEX) {
+			display_hex (buf,frame_length);
+			fprintf (stderr,"\n");	
+		}
+
+		if (output_format == FORMAT_PCAP) {
+			fwrite (&host_ts_sec, sizeof(int), 1, stdout);	// ts_sec: timestamp seconds
+			fwrite (&host_ts_usec, sizeof(int), 1, stdout);	// ts_usec: timestamp microseconds
 		
-		// 802.15.4 packet length including 2 bytes FCS
-		int f802154length = frame_length - 13;
-		fwrite (&f802154length, sizeof(uint32_t), 1, stdout);
-		fwrite (&f802154length, sizeof(uint32_t), 1, stdout);
-		fwrite (buf+11, 1, f802154length, stdout);
-		fflush(stdout);
+			// 802.15.4 packet length including 2 bytes FCS
+			int f802154length = frame_length - 13;
+			fwrite (&f802154length, sizeof(uint32_t), 1, stdout);
+			fwrite (&f802154length, sizeof(uint32_t), 1, stdout);
+			fwrite (buf+11, 1, f802154length, stdout);
+			fflush(stdout);
+		}
+
 	}
 
 
